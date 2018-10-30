@@ -98,7 +98,7 @@ void BacaMATRIKS (MATRIKS * M, int NB, int NK)
 	MakeMATRIKS (NB, NK, M);
 	for (i=GetFirstIdxBrs(*M); i<=GetLastIdxBrs(*M); i++){
 		for (j=GetFirstIdxKol(*M); j<=GetLastIdxKol(*M); j++){
-			scanf("%d", &temp);
+			scanf("%c", &temp);
 			Elmt(*M,i,j) = temp;
 		}
 	}
@@ -122,11 +122,11 @@ void TulisMATRIKS (MATRIKS M)
 	for (i=GetFirstIdxBrs(M); i<=GetLastIdxBrs(M); i++){
 		for (j=GetFirstIdxKol(M); j<=GetLastIdxKol(M); j++){
 			if (j != GetLastIdxKol(M)){
-				printf("%d ", Elmt(M,i,j));
+				printf("%c ", Elmt(M,i,j));
 			} else if (i != GetLastIdxBrs(M)){
-				printf("%d\n", Elmt(M,i,j));
+				printf("%c\n", Elmt(M,i,j));
 			} else{
-				printf("%d", Elmt(M,i,j));
+				printf("%c", Elmt(M,i,j));
 			}
 		}
 	}
@@ -225,7 +225,7 @@ void PKaliKons (MATRIKS * M, ElType K)
 }
 
 /* ********** KELOMPOK OPERASI RELASIONAL TERHADAP MATRIKS ********** */
-boolean EQ (MATRIKS M1, MATRIKS M2)
+boolean EQM (MATRIKS M1, MATRIKS M2)
 /* Mengirimkan true jika M1 = M2, yaitu NBElmt(M1) = NBElmt(M2) dan */
 /* untuk setiap i,j yang merupakan indeks baris dan kolom M1(i,j) = M2(i,j) */
 /* Juga merupakan strong EQ karena GetFirstIdxBrs(M1) = GetFirstIdxBrs(M2) 
@@ -260,7 +260,7 @@ boolean EQ (MATRIKS M1, MATRIKS M2)
 		return false;
 }
 
-boolean NEQ (MATRIKS M1, MATRIKS M2)
+boolean NEQM (MATRIKS M1, MATRIKS M2)
 /* Mengirimkan true jika M1 tidak sama dengan M2 */
 {
 	return(!EQ(M1,M2));
