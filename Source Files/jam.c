@@ -72,7 +72,13 @@ void TulisJAM (JAM J)
 /* Proses : menulis nilai setiap komponen J ke layar dalam format HH:MM:SS
    tanpa karakter apa pun di depan atau belakangnya, termasuk spasi, enter, dll.*/ 
 {
-   printf("%d:%d:%d\n", Hour(J), Minute(J), Second(J));
+  if (Minute(J)==0 && Hour(J)==0){
+    printf("%d\n", Second(J));
+  } else if (Hour(J)==0){
+    printf("%d:%d\n", Minute(J), Second(J));
+  } else{
+    printf("%d:%d:%d\n", Hour(J), Minute(J), Second(J));
+  }
 }
 
 
