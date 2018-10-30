@@ -16,7 +16,7 @@
 #define KolMax 100
 
 typedef int indeks; /* indeks baris, kolom */
-typedef int ElType; 
+typedef char ElType; 
 typedef struct { 
 	ElType Mem[BrsMax+1][KolMax+1];
     int NBrsEff; /* banyaknya/ukuran baris yg terdefinisi */
@@ -99,12 +99,12 @@ void PKaliKons (MATRIKS * M, ElType K);
 /* F.S. Mengalikan setiap elemen M dengan K */
 
 /* ********** KELOMPOK OPERASI RELASIONAL TERHADAP MATRIKS ********** */
-boolean EQ (MATRIKS M1, MATRIKS M2);
+boolean EQM (MATRIKS M1, MATRIKS M2);
 /* Mengirimkan true jika M1 = M2, yaitu NBElmt(M1) = NBElmt(M2) dan */
 /* untuk setiap i,j yang merupakan indeks baris dan kolom M1(i,j) = M2(i,j) */
 /* Juga merupakan strong EQ karena GetFirstIdxBrs(M1) = GetFirstIdxBrs(M2) 
    dan GetLastIdxKol(M1) = GetLastIdxKol(M2) */
-boolean NEQ (MATRIKS M1, MATRIKS M2);
+boolean NEQM (MATRIKS M1, MATRIKS M2);
 /* Mengirimkan true jika M1 tidak sama dengan M2 */
 boolean EQSize (MATRIKS M1, MATRIKS M2);
 /* Mengirimkan true jika ukuran efektif matriks M1 sama dengan ukuran efektif M2 */
