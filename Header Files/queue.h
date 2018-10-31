@@ -15,7 +15,12 @@
 /* Konstanta untuk mendefinisikan address tak terdefinisi */
 
 /* Definisi elemen dan address */
-typedef int infotype;
+typedef struct{
+    int NbPeople; //Jumlah orang dalam suatu kelompok
+    int WaitTime; //Waktu menunggu di antrian
+} Customer;
+
+typedef Customer infotype;
 typedef int address;   /* indeks tabel */
 /* Contoh deklarasi variabel bertype Queue : */
 /* Versi I : tabel dinamik, Head dan Tail eksplisit, ukuran disimpan */
