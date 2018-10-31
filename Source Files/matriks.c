@@ -225,7 +225,7 @@ void PKaliKons (MATRIKS * M, ElType K)
 }
 
 /* ********** KELOMPOK OPERASI RELASIONAL TERHADAP MATRIKS ********** */
-boolean EQM (MATRIKS M1, MATRIKS M2)
+boolean EQ (MATRIKS M1, MATRIKS M2)
 /* Mengirimkan true jika M1 = M2, yaitu NBElmt(M1) = NBElmt(M2) dan */
 /* untuk setiap i,j yang merupakan indeks baris dan kolom M1(i,j) = M2(i,j) */
 /* Juga merupakan strong EQ karena GetFirstIdxBrs(M1) = GetFirstIdxBrs(M2) 
@@ -260,7 +260,7 @@ boolean EQM (MATRIKS M1, MATRIKS M2)
 		return false;
 }
 
-boolean NEQM (MATRIKS M1, MATRIKS M2)
+boolean NEQ (MATRIKS M1, MATRIKS M2)
 /* Mengirimkan true jika M1 tidak sama dengan M2 */
 {
 	return(!EQ(M1,M2));

@@ -41,7 +41,7 @@ boolean IsEmpty (Queue Q);
 boolean IsFull (Queue Q);
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
 /* yaitu mengandung elemen sebanyak MaxEl */
-int NBElmt (Queue Q);
+int NBElmtQ (Queue Q);
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
 
 /* *** Kreator *** */

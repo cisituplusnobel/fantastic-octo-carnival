@@ -27,7 +27,7 @@ boolean IsFull (Queue Q)
 	}
 }
 
-int NBElmt (Queue Q)
+int NBElmtQ (Queue Q)
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
 {
 	if (IsEmpty(Q) == true){
@@ -39,8 +39,7 @@ int NBElmt (Queue Q)
 			return(MaxEl(Q)-(Head(Q)-Tail(Q)-1));
 		}
 	}
-}
-// 1 2T 3 4 5H 6 7 8 
+} 
 
 /* *** Kreator *** */
 void CreateEmpty (Queue * Q, int Max)
