@@ -32,6 +32,8 @@ typedef struct { infotype * T;   /* tabel penyimpan elemen */
 /* Jika Q adalah Queue, maka akses elemen : */
 #define Head(Q) (Q).HEAD
 #define Tail(Q) (Q).TAIL
+#define Cust(Q,i) (Q).T[i].NbPeople
+#define WT(Q,i) (Q).T[i].WaitTime
 #define InfoHead(Q) (Q).T[(Q).HEAD]
 #define InfoTail(Q) (Q).T[(Q).TAIL]
 #define MaxEl(Q) (Q).MaxEl
