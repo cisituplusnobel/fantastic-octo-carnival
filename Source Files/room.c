@@ -392,7 +392,7 @@ int main(){
             }
             DelQueue(&Q, &X);
             // Add List
-            AddEli(Customers, X, X.NbTable); // Customers : Array of Customer, pelanggan yang sudah duduk belum di buat.
+            AddEli(Customers, X, X.NbTable); // Customers : Array of Customer, pelanggan yang sudah duduk belum di buats.
           }
         }
         J = NextDetik(J);
