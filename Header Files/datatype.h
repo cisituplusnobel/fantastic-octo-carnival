@@ -1,4 +1,5 @@
 //Nama Kelompok/Kelas : Cisitu plus Nobel / K03
+
 #ifndef DATATYPE_H
 #define DATATYPE_H 
 
@@ -22,9 +23,4 @@ typedef struct{
     int NbTable; //Nomor Meja.
 } Table;
 
-
-
-
 #endif
-
-
