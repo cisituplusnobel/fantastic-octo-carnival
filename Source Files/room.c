@@ -340,8 +340,9 @@ int main(){
             (IsKosong4(R,&ruang,&meja));
             if (ruang != -999){
               MakeFullTable4(&R,ruang,meja);
-              // Add ke list
               DelQueue(&Q, &X);
+              // Add ke list
+              AddEli(Customers, X, X.NbTable); // Customers : Array of Customer, pelanggan yang sudah duduk belum di buat.
             }
             else{
               (IsKosong2(R,&ruang,&meja));
@@ -356,6 +357,7 @@ int main(){
                   if (Cust(Q,i) == 2){
                     MakeFullTable2(&R,ruang,meja);
                     //Add ke list
+                    AddEli(Customers, X, X.NbTable); // Customers : Array of Customer, pelanggan yang sudah duduk belum di buat.
                     boolq = true;
                     j=i;
                     while (j!=Tail(Q)){
@@ -390,6 +392,7 @@ int main(){
             }
             DelQueue(&Q, &X);
             // Add List
+            AddEli(Customers, X, X.NbTable); // Customers : Array of Customer, pelanggan yang sudah duduk belum di buat.
           }
         }
         J = NextDetik(J);
