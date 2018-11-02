@@ -1,7 +1,5 @@
 # fantastic-octo-carnival
 
-## Please fix array.c
-
 ### Note for developers
 - .h goes to Header Files
 - .c goes to Source Files
