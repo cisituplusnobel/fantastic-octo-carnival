@@ -11,7 +11,7 @@
 boolean IsEmptyList (List L)
 /* Mengirim true jika list kosong. Lihat definisi di atas. */
 {
-    return((First(L) == Nil) && (Last(L) == Nil));
+    return((FirstList(L) == Nil) && (LastList(L) == Nil));
 }
 
 /****************** PEMBUATAN LIST KOSONG ******************/
@@ -19,15 +19,15 @@ void CreateEmptyList (List *L)
 /* I.S. L sembarang  */
 /* F.S. Terbentuk list kosong. Lihat definisi di atas. */
 {
-    First(*L) = Nil;
-    Last(*L) = Nil;
+    FirstList(*L) = Nil;
+    LastList(*L) = Nil;
 }
 
 /****************** Manajemen Memori ******************/
 address AlokasiList (infotype X)
 /* Mengirimkan address hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address tidak nil. */
-/* Misalnya: menghasilkan P, maka Info(P)=X, Next(P)=Nil, Prev(P)=Nil */
+/* Misalnya: menghasilkan P, maka InfoList(P)=X, NextList(P)=Nil, PrevList(P)=Nil */
 /* Jika alokasi gagal, mengirimkan Nil. */
 {
     //KAMUS LOKAL
@@ -38,8 +38,8 @@ address AlokasiList (infotype X)
 	if (P == Nil)
 		return Nil;
 	else{
-		Info(P) = X;
-		Next(P) = Nil;
+		InfoList(P) = X;
+		NextList(P) = Nil;
 		return P;
 	}
 }
@@ -54,7 +54,7 @@ void DealokasiList (address P)
 
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
 address SearchList (List L, infotype X)
-/* Mencari apakah ada elemen list dengan Info(P)=X */
+/* Mencari apakah ada elemen list dengan InfoList(P)=X */
 /* Jika ada, mengirimkan address elemen tersebut. */
 /* Jika tidak ada, mengirimkan Nil */
 {
@@ -63,13 +63,13 @@ address SearchList (List L, infotype X)
 	address P;
 
 	//ALGORITMA
-	P = First(L);
+	P = FirstList(L);
 	found = false;
 	while ((P != Nil) && (!found)){
-		if (X == Info(P))
+		if (X == InfoList(P))
 			found = true;
 		else
-			P = Next(P);
+			P = NextList(P);
 	}
 	if (!found)
 		return Nil;
@@ -88,9 +88,9 @@ void InsVFirstList (List *L, infotype X)
 	address P;
 
 	//ALGORITMA
-	P = Alokasi(X);
+	P = AlokasiList(X);
 	if (P != Nil){
-		InsertFirst(L,P);
+		InsertFirstList(L,P);
 	}
 }
 
@@ -104,9 +104,9 @@ void InsVLastList (List *L, infotype X)
 	address P;
 
 	//ALGORITMA
-	P = Alokasi(X);
+	P = AlokasiList(X);
 	if (P != Nil){
-		InsertLast(L,P);
+		InserLastListList(L,P);
 	}
 }
 
@@ -120,9 +120,9 @@ void DelVFirstList (List *L, infotype *X)
 	address P;
 
 	//ALGORITMA
-	DelFirst(L,&P);
-	*X = Info(P);
-	Dealokasi(P);
+	DelFirstList(L,&P);
+	*X = InfoList(P);
+	DealokasiList(P);
 }
 
 void DelVLastList (List *L, infotype *X)
@@ -134,9 +134,9 @@ void DelVLastList (List *L, infotype *X)
 	address P;
 
 	//ALGORITMA
-	DelLast(L,&P);
-	*X = Info(P);
-	Dealokasi(P);
+	DelLastList(L,&P);
+	*X = InfoList(P);
+	DealokasiList(P);
 }
 
 /****************** PRIMITIF BERDASARKAN ALAMAT ******************/
@@ -145,54 +145,54 @@ void InsertFirstList (List *L, address P)
 /* I.S. Sembarang, P sudah dialokasi  */
 /* F.S. Menambahkan elemen ber-address P sebagai elemen pertama */
 {
-	Next(P) = First(*L);
-	if (!IsEmpty(*L)){
-		Prev(First(*L)) = P;
+	NextList(P) = FirstList(*L);
+	if (!IsEmptyList(*L)){
+		PrevList(FirstList(*L)) = P;
 	} else{
-		Last(*L) = P;
+		LastList(*L) = P;
 	}
-	First(*L) = P;
+	FirstList(*L) = P;
 }
 
 void InsertLastList (List *L, address P)
 /* I.S. Sembarang, P sudah dialokasi  */
 /* F.S. P ditambahkan sebagai elemen terakhir yang baru */
 {
-	Prev(P) = Last(*L);
-	if (!IsEmpty(*L)){
-		Next(Last(*L)) = P;
+	PrevList(P) = LastList(*L);
+	if (!IsEmptyList(*L)){
+		NextList(LastList(*L)) = P;
 	} else{
-		First(*L) = P;
+		FirstList(*L) = P;
 	}
-	Last(*L) = P;
+	LastList(*L) = P;
 }
 
 void InsertAfterList (List *L, address P, address Prec)
 /* I.S. Prec pastilah elemen list; P sudah dialokasi  */
 /* F.S. Insert P sebagai elemen sesudah elemen beralamat Prec */
 {
-	if (Next(Prec) != Nil){
-		Prev(Next(Prec)) = P;
+	if (NextList(Prec) != Nil){
+		PrevList(NextList(Prec)) = P;
 	} else{
-		Last(*L) = P;
+		LastList(*L) = P;
 	}
-	Next(P) = Next(Prec);
-	Prev(P) = Prec;
-	Next(Prec) = P;
+	NextList(P) = NextList(Prec);
+	PrevList(P) = Prec;
+	NextList(Prec) = P;
 }
 
 void InsertBeforeList (List *L, address P, address Succ)
 /* I.S. Succ pastilah elemen list; P sudah dialokasi  */
 /* F.S. Insert P sebagai elemen sebelum elemen beralamat Succ */
 {
-	if (Prev(Succ) != Nil){
-		Next(Prev(Succ)) = P;
+	if (PrevList(Succ) != Nil){
+		NextList(PrevList(Succ)) = P;
 	} else{
-		First(*L) = P;
+		FirstList(*L) = P;
 	}
-	Prev(P) = Prev(Succ);
-	Next(P) = Succ;
-	Prev(Succ) = P;
+	PrevList(P) = PrevList(Succ);
+	NextList(P) = Succ;
+	PrevList(Succ) = P;
 }
 
 /*** PENGHAPUSAN SEBUAH ELEMEN ***/
@@ -202,15 +202,15 @@ void DelFirstList (List *L, address *P)
 /*      Elemen list berkurang satu (mungkin menjadi kosong) */
 /* First element yg baru adalah suksesor elemen pertama yang lama */
 {
-	*P = First(*L);
-	if (First(*L) == Last(*L)){
-		Last(*L) = Nil;
+	*P = FirstList(*L);
+	if (FirstList(*L) == LastList(*L)){
+		LastList(*L) = Nil;
 	} else{
-		Prev(Next(First(*L))) = Nil;
+		PrevList(NextList(FirstList(*L))) = Nil;
 	}
-	First(*L) = Next(First(*L));
-	Next(*P) = Nil;
-	Prev(*P) = Nil;
+	FirstList(*L) = NextList(FirstList(*L));
+	NextList(*P) = Nil;
+	PrevList(*P) = Nil;
 }
 
 void DelLastList (List *L, address *P)
@@ -219,22 +219,22 @@ void DelLastList (List *L, address *P)
 /*      Elemen list berkurang satu (mungkin menjadi kosong) */
 /* Last element baru adalah predesesor elemen pertama yg lama, jika ada */
 {
-	*P = Last(*L);
-	if (First(*L) == Last(*L)){
-		First(*L) = Nil;
+	*P = LastList(*L);
+	if (FirstList(*L) == LastList(*L)){
+		FirstList(*L) = Nil;
 	} else{
-		Next(Prev(Last(*L))) = Nil;
+		NextList(PrevList(LastList(*L))) = Nil;
 	}
-	Last(*L) = Prev(Last(*L));
-	Next(*P) = Nil;
-	Prev(*P) = Nil;
+	LastList(*L) = PrevList(LastList(*L));
+	NextList(*P) = Nil;
+	PrevList(*P) = Nil;
 }
 
 void DelPList (List *L, infotype X)
 /* I.S. Sembarang */
-/* F.S. Jika ada elemen list beraddress P, dengan Info(P)=X  */
+/* F.S. Jika ada elemen list beraddress P, dengan InfoList(P)=X  */
 /* maka P dihapus dari list dan didealokasi */
-/* Jika tidak ada elemen list dengan Info(P)=X, maka list tetap */
+/* Jika tidak ada elemen list dengan InfoList(P)=X, maka list tetap */
 /* List mungkin menjadi kosong karena penghapusan */
 {
 	//KAMUS LOKAL
@@ -242,57 +242,57 @@ void DelPList (List *L, infotype X)
 	boolean found;
 
 	//ALGORITMA
-	P = First(*L);
+	P = FirstList(*L);
 	Prec = Nil;
 	found = false;
 	while ((!found) && (P != Nil)){
-		if (Info(P) == X){
+		if (InfoList(P) == X){
 			found = true;
 		} else{
 			Prec = P;
-			P = Next(P);
+			P = NextList(P);
 		}
 	}
 	if (found){
 		if (Prec == Nil){
-			DelVFirst(L,&X);
+			DelVFirstList(L,&X);
 		} else{
-			DelAfter(L,&P,Prec);
-			Dealokasi(P);
+			DelAfterList(L,&P,Prec);
+			DealokasiList(P);
 		}
 	}
 }
 
 void DelAfterList (List *L, address *Pdel, address Prec)
 /* I.S. List tidak kosong. Prec adalah anggota list. */
-/* F.S. Menghapus Next(Prec): */
+/* F.S. Menghapus NextList(Prec): */
 /*      Pdel adalah alamat elemen list yang dihapus  */
 {
-	*Pdel = Next(Prec);
-	if (Next(Next(Prec)) != Nil){
-		Prev(Next(Next(Prec))) = Prec;
+	*Pdel = NextList(Prec);
+	if (NextList(NextList(Prec)) != Nil){
+		PrevList(NextList(NextList(Prec))) = Prec;
 	} else{
-		Last(*L) = Prec;
+		LastList(*L) = Prec;
 	}
-	Next(Prec) = Next(Next(Prec));
-	Next(*Pdel) = Nil;
-	Prev(*Pdel) = Nil;
+	NextList(Prec) = NextList(NextList(Prec));
+	NextList(*Pdel) = Nil;
+	PrevList(*Pdel) = Nil;
 }
 
 void DelBeforeList (List *L, address *Pdel, address Succ)
 /* I.S. List tidak kosong. Succ adalah anggota list. */
-/* F.S. Menghapus Prev(Succ): */
+/* F.S. Menghapus PrevList(Succ): */
 /*      Pdel adalah alamat elemen list yang dihapus  */
 {
-	*Pdel = Prev(Succ);
-	if (Prev(Prev(Succ)) != Nil){
-		Next(Prev(Prev(Succ))) = Succ;
+	*Pdel = PrevList(Succ);
+	if (PrevList(PrevList(Succ)) != Nil){
+		NextList(PrevList(PrevList(Succ))) = Succ;
 	} else{
-		First(*L) = Succ;
+		FirstList(*L) = Succ;
 	}
-	Prev(Succ) = Prev(Prev(Succ));
-	Prev(*Pdel) = Nil;
-	Next(*Pdel) = Nil;
+	PrevList(Succ) = PrevList(PrevList(Succ));
+	PrevList(*Pdel) = Nil;
+	NextList(*Pdel) = Nil;
 }
 
 /****************** PROSES SEMUA ELEMEN LIST ******************/
@@ -308,14 +308,14 @@ void PrintForwardList (List L)
 	address P;
 
 	//ALGORITMA
-	if (IsEmpty(L))
+	if (IsEmptyList(L))
 		printf("[]");
 	else{
-		P = First(L);
+		P = FirstList(L);
 		printf("[");
 		while (P != Nil){
-			printf("%d", Info(P));
-			P = Next(P);
+			printf("%d", InfoList(P));
+			P = NextList(P);
 			if (P != Nil){
 				printf(",");
 			}
@@ -336,14 +336,14 @@ void PrintBackwardList (List L)
 	address P;
 
 	//ALGORITMA
-	if (IsEmpty(L))
+	if (IsEmptyList(L))
 		printf("[]");
 	else{
-		P = Last(L);
+		P = LastList(L);
 		printf("[");
 		while (P != Nil){
-			printf("%d", Info(P));
-			P = Prev(P);
+			printf("%d", InfoList(P));
+			P = PrevList(P);
 			if (P != Nil){
 				printf(",");
 			}
