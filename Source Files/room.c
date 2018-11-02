@@ -19,43 +19,23 @@ void MakeEmptyTable(ROOM *R, int room, int table)
 /**/
 
 {
-  if (room==1 && table==1){
-    Elmt(Elm(*R,1),1,2) = 'X';
-    Elmt(Elm(*R,1),2,1) = 'X';
-    Elmt(Elm(*R,1),2,3) = 'X';
-    Elmt(Elm(*R,1),3,2) = 'X';
-    Elmt(Elm(*R,1),2,2) = '1';
-  } else if (room==1 && table==2){
-    Elmt(Elm(*R,1),2,6) = 'X';
-    Elmt(Elm(*R,1),2,8) = 'X';
-    Elmt(Elm(*R,1),2,7) = '2';
-  } else if (room==1 && table==3){
-    Elmt(Elm(*R,1),6,2) = 'X';
-    Elmt(Elm(*R,1),7,1) = 'X';
-    Elmt(Elm(*R,1),7,3) = 'X';
-    Elmt(Elm(*R,1),8,2) = 'X';
-    Elmt(Elm(*R,1),7,2) = '3';
-  } else if (room==1 && table==4){
-    Elmt(Elm(*R,1),7,6) = 'X';
-    Elmt(Elm(*R,1),7,8) = 'X';
-    Elmt(Elm(*R,1),7,7) = '4';      
-  } else if ((room==2 || room==3) && table==1){
-    Elmt(Elm(*R,room),1,3) = 'X';
-    Elmt(Elm(*R,room),2,2) = 'X';
-    Elmt(Elm(*R,room),2,4) = 'X';
-    Elmt(Elm(*R,room),3,3) = 'X';
-    Elmt(Elm(*R,room),2,3) = '1'; 
-  } else if ((room==2 || room==3) && table==2){
+  if (table==1){
+    Elmt(Elm(*R,room),1,2) = 'X';
+    Elmt(Elm(*R,room),2,1) = 'X';
+    Elmt(Elm(*R,room),2,3) = 'X';
+    Elmt(Elm(*R,room),3,2) = 'X';
+    Elmt(Elm(*R,room),2,2) = '1'; 
+  } else if (table==2){
     Elmt(Elm(*R,room),2,6) = 'X';
     Elmt(Elm(*R,room),2,8) = 'X';
     Elmt(Elm(*R,room),2,7) = '2';
-  } else if ((room==2 || room==3) && table==3){
+  } else if (table==3){
     Elmt(Elm(*R,room),6,2) = 'X';
     Elmt(Elm(*R,room),7,1) = 'X';
     Elmt(Elm(*R,room),7,3) = 'X';
     Elmt(Elm(*R,room),8,2) = 'X';
     Elmt(Elm(*R,room),7,2) = '3';
-  } else if ((room==2 || room==3) && table==4){
+  } else if (table==4){
     Elmt(Elm(*R,room),7,6) = 'X';
     Elmt(Elm(*R,room),7,8) = 'X';
     Elmt(Elm(*R,room),7,7) = '4';
@@ -65,26 +45,14 @@ void MakeEmptyTable(ROOM *R, int room, int table)
 void MakeFullTable4(ROOM *R, int room, int table)
 /**/
 
-{
-  if (room==1 && table==1){
-    Elmt(Elm(*R,1),1,2) = 'C';
-    Elmt(Elm(*R,1),2,1) = 'C';
-    Elmt(Elm(*R,1),2,3) = 'C';
-    Elmt(Elm(*R,1),3,2) = 'C';
-    Elmt(Elm(*R,1),2,2) = '1';
-  } else if (room==1 && table==3){
-    Elmt(Elm(*R,1),6,2) = 'C';
-    Elmt(Elm(*R,1),7,1) = 'C';
-    Elmt(Elm(*R,1),7,3) = 'C';
-    Elmt(Elm(*R,1),8,2) = 'C';
-    Elmt(Elm(*R,1),7,2) = '3';      
-  } else if ((room==2 || room==3) && table==1){
-    Elmt(Elm(*R,room),1,3) = 'C';
-    Elmt(Elm(*R,room),2,2) = 'C';
-    Elmt(Elm(*R,room),2,4) = 'C';
-    Elmt(Elm(*R,room),3,3) = 'C';
-    Elmt(Elm(*R,room),2,3) = '1';
-  } else if ((room==2 || room==3) && table==3){
+{   
+  if (table==1){
+    Elmt(Elm(*R,room),1,2) = 'C';
+    Elmt(Elm(*R,room),2,1) = 'C';
+    Elmt(Elm(*R,room),2,3) = 'C';
+    Elmt(Elm(*R,room),3,2) = 'C';
+    Elmt(Elm(*R,room),2,2) = '1';
+  } else if (table==3){
     Elmt(Elm(*R,room),6,2) = 'C';
     Elmt(Elm(*R,room),7,1) = 'C';
     Elmt(Elm(*R,room),7,3) = 'C';
@@ -97,43 +65,23 @@ void MakeFullTable2(ROOM *R, int room, int table)
 /**/
 
 {
-  if (room==1 && table==1){
-    Elmt(Elm(*R,1),1,2) = 'X';
-    Elmt(Elm(*R,1),2,1) = 'C';
-    Elmt(Elm(*R,1),2,3) = 'C';
-    Elmt(Elm(*R,1),3,2) = 'X';
-    Elmt(Elm(*R,1),2,2) = '1';
-  } else if (room==1 && table==3){
-    Elmt(Elm(*R,1),6,2) = 'X';
-    Elmt(Elm(*R,1),7,1) = 'C';
-    Elmt(Elm(*R,1),7,3) = 'C';
-    Elmt(Elm(*R,1),8,2) = 'X';
-    Elmt(Elm(*R,1),7,2) = '3';      
-  } else if ((room==2 || room==3) && table==1){
-    Elmt(Elm(*R,room),1,3) = 'X';
-    Elmt(Elm(*R,room),2,2) = 'C';
-    Elmt(Elm(*R,room),2,4) = 'C';
-    Elmt(Elm(*R,room),3,3) = 'X';
-    Elmt(Elm(*R,room),2,3) = '1';
-  } else if ((room==2 || room==3) && table==3){
+  if (table==1){
+    Elmt(Elm(*R,room),1,2) = 'X';
+    Elmt(Elm(*R,room),2,1) = 'C';
+    Elmt(Elm(*R,room),2,3) = 'C';
+    Elmt(Elm(*R,room),3,2) = 'X';
+    Elmt(Elm(*R,room),2,2) = '1';
+  } else if (table==3){
     Elmt(Elm(*R,room),6,2) = 'X';
     Elmt(Elm(*R,room),7,1) = 'C';
     Elmt(Elm(*R,room),7,3) = 'C';
     Elmt(Elm(*R,room),8,2) = 'X';
-    Elmt(Elm(*R,room),7,2) = '3';
-  } else if (room==1 && table==2){
-    Elmt(Elm(*R,1),2,6) = 'C';
-    Elmt(Elm(*R,1),2,8) = 'C';
-    Elmt(Elm(*R,1),2,7) = '2';
-  } else if (room==1 && table==4){
-    Elmt(Elm(*R,1),7,6) = 'C';
-    Elmt(Elm(*R,1),7,8) = 'C';
-    Elmt(Elm(*R,1),7,7) = '4';      
-  } else if ((room==2 || room==3) && table==2){
+    Elmt(Elm(*R,room),7,2) = '3';     
+  } else if (table==2){
     Elmt(Elm(*R,room),2,6) = 'C';
     Elmt(Elm(*R,room),2,8) = 'C';
     Elmt(Elm(*R,room),2,7) = '2';
-  } else if ((room==2 || room==3) && table==4){
+  } else if (table==4){
     Elmt(Elm(*R,room),7,6) = 'C';
     Elmt(Elm(*R,room),7,8) = 'C';
     Elmt(Elm(*R,room),7,7) = '4';
@@ -164,49 +112,25 @@ void MakeKitchen(ROOM *R)
 boolean IsKosong(ROOM R, int room, int table)
 /**/
 {
-  if (room==1 && table==1){
-    if (Elmt(Elm(R,1),2,1) == 'C'){
-      return false;
-    }else{
-      return true;
-    }
-  } else if (room==1 && table==2){
-    if (Elmt(Elm(R,1),2,6) == 'C'){
-      return false;
-    } else{
-      return true;
-    }
-  } else if (room==1 && table==3){
-    if (Elmt(Elm(R,1),7,1) == 'C'){
-      return false;
-    }else{
-      return true;
-    }
-  } else if (room==1 && table==4){
-    if (Elmt(Elm(R,1),7,6) == 'C'){
-      return false;
-    }else{
-      return true;
-    }
-  } else if ((room==2 || room==3) && table==1){
+  if (table==1){
     if (Elmt(Elm(R,room),2,2) == 'C'){
       return false;
     }else{
       return true;
     }
-  } else if ((room==2 || room==3) && table==2){
+  } else if (table==2){
     if (Elmt(Elm(R,room),2,6) == 'C'){
       return false;
     }else{
       return true;
     }
-  } else if ((room==2 || room==3) && table==3){
+  } else if (table==3){
     if (Elmt(Elm(R,room),7,1) == 'C'){
       return false;
     } else{
       return true;
     }
-  } else if ((room==2 || room==3) && table==4){
+  } else if (table==4){
     if (Elmt(Elm(R,room),7,6) == 'C'){
       return false;
     }else{
@@ -299,8 +223,10 @@ yaitu ruangan */
         Elmt(Elm(*R,i),j,k) = ' ';
       }
     }
-    for (j=1; j<=4; j++){
-      MakeEmptyTable(R,i,j);
+    if (i!=4){
+      for (j=1; j<=4; j++){
+        MakeEmptyTable(R,i,j);
+      }
     }
   }
   MakeKitchen(R);
@@ -367,7 +293,7 @@ int main(){
       }
       J = NextDetik(J);
     }else if (C2=='L'){
-      if (Absis(P) == 2 && Ordinat(P) == 1 && (room == 2 || room == 3)){
+      if (Absis(P) == 5 && Ordinat(P) == 1 && (room == 2 || room == 3)){
         Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
         if (room == 2){
           room = 1;
@@ -391,7 +317,7 @@ int main(){
         }else{
           room = 3;
         }
-        Absis(temp) = 2; Ordinat(temp) = 1;
+        Absis(temp) = 5; Ordinat(temp) = 1;
         Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
       }
       else if (Elmt(Elm(R,room),Absis(P),Ordinat(P)+1) == ' '){
