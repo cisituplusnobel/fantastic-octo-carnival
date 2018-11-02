@@ -11,27 +11,25 @@ Kata CKata;
 void IgnoreBlank()
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : CC sembarang 
-   F.S. : CC ≠ BLANK atau CC = MARK */
-{
-  while ((CC == BLANK) && (CC != MARK)){
-    ADV();
-  }
+   F.S. : CC ≠ BLANK atau CC = MARK */ {
+    while ((CC == BLANK) && (CC != MARK)) {
+        ADV();
+    }
 }
 
 void STARTKATA()
 /* I.S. : CC sembarang 
    F.S. : EndKata = true, dan CC = MARK; 
           atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
-          CC karakter pertama sesudah karakter terakhir kata */
-{
-  START();
-  IgnoreBlank();
-  if (CC == MARK){
-    EndKata = true;
-  } else{
-    EndKata = false;
-    SalinKata();
-  }
+          CC karakter pertama sesudah karakter terakhir kata */ {
+    START();
+    IgnoreBlank();
+    if (CC == MARK) {
+        EndKata = true;
+    } else {
+        EndKata = false;
+        SalinKata();
+    }
 }
 
 void ADVKATA()
@@ -39,15 +37,14 @@ void ADVKATA()
    F.S. : CKata adalah kata terakhir yang sudah diakuisisi, 
           CC adalah karakter pertama dari kata berikutnya, mungkin MARK
           Jika CC = MARK, EndKata = true.		  
-   Proses : Akuisisi kata menggunakan procedure SalinKata */
-{
-  IgnoreBlank();
-  if (CC == MARK){
-    EndKata = true;
-  } else{
-    SalinKata();
+   Proses : Akuisisi kata menggunakan procedure SalinKata */ {
     IgnoreBlank();
-  }
+    if (CC == MARK) {
+        EndKata = true;
+    } else {
+        SalinKata();
+        IgnoreBlank();
+    }
 }
 
 void SalinKata()
@@ -56,25 +53,24 @@ void SalinKata()
    F.S. : CKata berisi kata yang sudah diakuisisi; 
           CC = BLANK atau CC = MARK; 
           CC adalah karakter sesudah karakter terakhir yang diakuisisi.
-          Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
-{
-  // KAMUS LOKAL
-  int i;
+          Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */ {
+    // KAMUS LOKAL
+    int i;
 
-  // ALGORITMA
-  i = 1;
-  for(;;){
-    CKata.TabKata[i] = CC;
-    ADV();
-    if ((CC == MARK) || (CC == BLANK)){
-      break;
-    } else{
-      i++;
+    // ALGORITMA
+    i = 1;
+    for (;;) {
+        CKata.TabKata[i] = CC;
+        ADV();
+        if ((CC == MARK) || (CC == BLANK)) {
+            break;
+        } else {
+            i++;
+        }
     }
-  }
-  if (CKata.Length > NMax){
-    CKata.Length = NMax;
-  } else{
-    CKata.Length = i;
-  }
+    if (CKata.Length > NMax) {
+        CKata.Length = NMax;
+    } else {
+        CKata.Length = i;
+    }
 }
