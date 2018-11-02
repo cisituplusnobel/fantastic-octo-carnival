@@ -5,6 +5,7 @@
 #include "jam.h"
 #include "queue.h"
 #include "datatype.h"
+#include "stackt.h"
 
 #define RMin 1
 #define RMax 100
@@ -236,6 +237,7 @@ yaitu ruangan */
   cust.NbPeople = 4;
   cust.WaitTime = 30;
   AddQueue(Q, cust);
+  CreateEmptyStackt(&S);
 }
 
 int main(){
@@ -244,13 +246,14 @@ int main(){
   POINT P,temp;
   JAM J;
   Queue Q;
+  Stack S;
   char C1,C2;
   int i,ii,j,k,room,ruang,meja;
   boolean boolq;
   Customer cust,X;
 
   //ALGORITMA
-  Inisalisasi(&R, &P, &J, &Q,cust);
+  Inisalisasi(&R, &P, &J, &Q, cust, &S);
   Elmt(Elm(R,1),Absis(P),Ordinat(P)) = 'P';
   room = 1;
   TulisMATRIKS(Elm(R,room));
@@ -258,137 +261,159 @@ int main(){
   printf("COMMAND = ");
   scanf("%c%c", &C2, &C1);
   while(true){
-    if (C2=='D'){
-      if (Absis(P) == 8 && Ordinat(P) == 5 && (room == 1 || room == 2)){
-        Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
-        if (room == 1){
-          room = 4;
-        }else{
-          room = 3;
-        }
-        Absis(temp) = 1; Ordinat(temp) = 5;
-        Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
-      }
-      else if (Elmt(Elm(R,room),Absis(P)+1,Ordinat(P)) == ' '){
-        temp = PlusDelta(P,1,0);
-        Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
-        Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
-      }
-      J = NextDetik(J);
-    }else if (C2=='U'){
-      if (Absis(P) == 1 && Ordinat(P) == 5 && (room == 4 || room == 3)){
-        Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
-        if (room == 4){
-          room = 1;
-        }else{
-          room = 2;
-        }
-        Absis(temp) = 8; Ordinat(temp) = 5;
-        Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
-      }
-      else if (Elmt(Elm(R,room),Absis(P)-1,Ordinat(P)) == ' '){
-        temp = PlusDelta(P,-1,0);
-        Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
-        Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
-      }
-      J = NextDetik(J);
-    }else if (C2=='L'){
-      if (Absis(P) == 5 && Ordinat(P) == 1 && (room == 2 || room == 3)){
-        Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
-        if (room == 2){
-          room = 1;
-        }else{
-          room = 4;
-        }
-        Absis(temp) = 5; Ordinat(temp) = 8;
-        Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
-      }
-      else if (Elmt(Elm(R,room),Absis(P),Ordinat(P)-1) == ' '){
-        temp = PlusDelta(P,0,-1);
-        Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
-        Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
-      }
-      J = NextDetik(J);
-    }else if (C2=='R'){
-      if (Absis(P) == 5 && Ordinat(P) == 8 && (room == 1 || room == 4)){
-        Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
-        if (room == 1){
-          room = 2;
-        }else{
-          room = 3;
-        }
-        Absis(temp) = 5; Ordinat(temp) = 1;
-        Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
-      }
-      else if (Elmt(Elm(R,room),Absis(P),Ordinat(P)+1) == ' '){
-        temp = PlusDelta(P,0,1);
-        Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
-        Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
-      }
-      J = NextDetik(J);
-    }else if(C2=='P'){
-      if (!IsEmptyQueue(Q)){
-        if (InfoHead(Q).NbPeople == 4){
-          (IsKosong4(R,&ruang,&meja));
-          if (ruang != -999){
-            MakeFullTable4(&R,ruang,meja);
-            DelQueue(&Q, &X);
+    switch (C2){
+      case 'D':
+        if (Absis(P) == 8 && Ordinat(P) == 5 && (room == 1 || room == 2)){
+          Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
+          if (room == 1){
+            room = 4;
+          }else{
+            room = 3;
           }
-          else{
-            (IsKosong2(R,&ruang,&meja));
+          Absis(temp) = 1; Ordinat(temp) = 5;
+          Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
+        }
+        else if (Elmt(Elm(R,room),Absis(P)+1,Ordinat(P)) == ' '){
+          temp = PlusDelta(P,1,0);
+          Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
+          Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
+        }
+        J = NextDetik(J);
+        break;
+      case 'U':
+        if (Absis(P) == 1 && Ordinat(P) == 5 && (room == 4 || room == 3)){
+          Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
+          if (room == 4){
+            room = 1;
+          }else{
+            room = 2;
+          }
+          Absis(temp) = 8; Ordinat(temp) = 5;
+          Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
+        }
+        else if (Elmt(Elm(R,room),Absis(P)-1,Ordinat(P)) == ' '){
+          temp = PlusDelta(P,-1,0);
+          Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
+          Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
+        }
+        J = NextDetik(J);
+        break;
+      case 'L':
+        if (Absis(P) == 5 && Ordinat(P) == 1 && (room == 2 || room == 3)){
+          Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
+          if (room == 2){
+            room = 1;
+          }else{
+            room = 4;
+          }
+          Absis(temp) = 5; Ordinat(temp) = 8;
+          Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
+        }
+        else if (Elmt(Elm(R,room),Absis(P),Ordinat(P)-1) == ' '){
+          temp = PlusDelta(P,0,-1);
+          Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
+          Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
+        }
+        J = NextDetik(J);
+        break;
+      case 'R':
+        if (Absis(P) == 5 && Ordinat(P) == 8 && (room == 1 || room == 4)){
+          Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
+          if (room == 1){
+            room = 2;
+          }else{
+            room = 3;
+          }
+          Absis(temp) = 5; Ordinat(temp) = 1;
+          Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
+        }
+        else if (Elmt(Elm(R,room),Absis(P),Ordinat(P)+1) == ' '){
+          temp = PlusDelta(P,0,1);
+          Elmt(Elm(R,room),Absis(P),Ordinat(P)) = ' ';
+          Elmt(Elm(R,room),Absis(temp),Ordinat(temp)) = 'P';
+        }
+        J = NextDetik(J);
+        break;
+      case 'P':
+        if (!IsEmptyQueue(Q)){
+          if (InfoHead(Q).NbPeople == 4){
+            (IsKosong4(R,&ruang,&meja));
             if (ruang != -999){
-              i=Head(Q);
-              boolq = false;
-              ii = Tail(Q)+1;
-              if (ii>MaxEl(Q)){
-                ii = ii-MaxEl(Q);
-              }
-              while ((i!=ii) && !boolq){
-                if (Cust(Q,i) == 2){
-                  MakeFullTable2(&R,ruang,meja);
-                  printf("\n\n--ADA--\n\n");
-                  boolq = true;
-                  j=i;
-                  while (j!=Tail(Q)){
-                    k=j+1;
-                    if (k>MaxEl(Q)){
-                      k = k-MaxEl(Q);
-                    }
-                    Q.T[j] = Q.T[k];
-                    j=k;
-                  }
-                  Tail(Q)--;
-                  if (Tail(Q)<1){
-                    Tail(Q) = MaxEl(Q);
-                  }
-                }
-                i++;
-                if (i>MaxEl(Q)){
-                  i = i-MaxEl(Q);
-                }
-              }
+              MakeFullTable4(&R,ruang,meja);
+              // Add ke list
+              DelQueue(&Q, &X);
             }
             else{
-              printf("Semua Meja Penuh!\n");
+              (IsKosong2(R,&ruang,&meja));
+              if (ruang != -999){
+                i=Head(Q);
+                boolq = false;
+                ii = Tail(Q)+1;
+                if (ii>MaxEl(Q)){
+                  ii = ii-MaxEl(Q);
+                }
+                while ((i!=ii) && !boolq){
+                  if (Cust(Q,i) == 2){
+                    MakeFullTable2(&R,ruang,meja);
+                    //Add ke list
+                    boolq = true;
+                    j=i;
+                    while (j!=Tail(Q)){
+                      k=j+1;
+                      if (k>MaxEl(Q)){
+                        k = k-MaxEl(Q);
+                      }
+                      Q.T[j] = Q.T[k];
+                      j=k;
+                    }
+                    Tail(Q)--;
+                    if (Tail(Q)<1){
+                      Tail(Q) = MaxEl(Q);
+                    }
+                  }
+                  i++;
+                  if (i>MaxEl(Q)){
+                    i = i-MaxEl(Q);
+                  }
+                }
+              }
+              else{
+                printf("Semua Meja Penuh!\n");
+              }
             }
-          }
-        }else{
-          (IsKosong2(R,&ruang,&meja));
-          if (ruang != -999){
-            MakeFullTable2(&R,ruang,meja);
-            DelQueue(&Q, &X);
           }else{
-            MakeFullTable4(&R,ruang,meja);
-          }    
+            (IsKosong2(R,&ruang,&meja));
+            if (ruang != -999){
+              MakeFullTable2(&R,ruang,meja);
+            }else{
+              MakeFullTable4(&R,ruang,meja);
+            }
+            DelQueue(&Q, &X);
+            // Add List
+          }
         }
-      }
-      J = NextDetik(J);
-    }else if(C2='T'){
-      printf("RUANG 1 \n"); TulisMATRIKS(Elm(R,1)); printf("\n\n");
-      printf("RUANG 2 \n"); TulisMATRIKS(Elm(R,2)); printf("\n\n");
-      printf("RUANG 3 \n"); TulisMATRIKS(Elm(R,3)); printf("\n\n");
-      printf("DAPUR \n"); TulisMATRIKS(Elm(R,4)); printf("\n\n");
+        J = NextDetik(J);
+        break;
+      case 'T':
+        if (room==4){
+          if((Elmt(Elm(R,room),Absis(P)+1,Ordinat(P)) == 'M')||(Elmt(Elm(R,room),Absis(P)-1,Ordinat(P)) == 'M')||(Elmt(Elm(R,room),Absis(P),Ordinat(P)+1) == 'M')||(Elmt(Elm(R,room),Absis(P),Ordinat(P)-1) == 'M')){
+            if (Absis(P)==1 && Ordinat(P)==1){
+              Push(&S,1);
+            }
+            else if (Absis(P)==1 && Ordinat(P)==2){
+              Push (&S,2);
+            }
+            else 
+          }
+        }
+        break;
+      default :
+        printf("RUANG 1 \n"); TulisMATRIKS(Elm(R,1)); printf("\n\n");
+        printf("RUANG 2 \n"); TulisMATRIKS(Elm(R,2)); printf("\n\n");
+        printf("RUANG 3 \n"); TulisMATRIKS(Elm(R,3)); printf("\n\n");
+        printf("DAPUR \n"); TulisMATRIKS(Elm(R,4)); printf("\n\n");
     }
+
     Absis(P) = Absis(temp); Ordinat(P) = Ordinat(temp);
     TulisMATRIKS(Elm(R,room)); printf("\n");
     printf("TIME : ");
