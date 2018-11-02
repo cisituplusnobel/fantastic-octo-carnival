@@ -10,16 +10,12 @@
 #define queue_H
 
 #include "boolean.h"
+#include "datatype.h"
 
 #define Nil 0
 /* Konstanta untuk mendefinisikan address tak terdefinisi */
 
 /* Definisi elemen dan address */
-typedef struct{
-    int NbPeople; //Jumlah orang dalam suatu kelompok
-    int WaitTime; //Waktu menunggu di antrian
-} Customer;
-
 typedef Customer infotype;
 typedef int address;   /* indeks tabel */
 /* Contoh deklarasi variabel bertype Queue : */

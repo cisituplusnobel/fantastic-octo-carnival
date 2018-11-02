@@ -12,6 +12,7 @@
 #define ARRAY_H
 
 #include "boolean.h"
+#include "datatype.h"
 
 /*  Kamus Umum */
 #define IdxMax 100
@@ -23,7 +24,7 @@
 
 /* Definisi elemen dan koleksi objek */
 typedef int IdxType;  /* type indeks */
-typedef int ElType;   /* type elemen tabel */
+typedef Table ElType;   /* type elemen tabel */
 typedef struct { 
 	ElType TI[IdxMax+1]; /* memori tempat penyimpan elemen (container) */
 	int Neff; /* >=0, banyaknya elemen efektif */
