@@ -4,7 +4,6 @@
 
 JAM PlayTime;
 int Money;
-Table TableList[20];
 int PlayerLife;
 long PlayerMoney;
 //Food TheFood;

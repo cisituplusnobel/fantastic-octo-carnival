@@ -23,20 +23,20 @@ void CreateEmptyList(List *L)
 }
 
 /****************** Manajemen Memori ******************/
-address AlokasiList(infotype X)
+address AlokasiMeja (Customer X)
 /* Mengirimkan address hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address tidak nil. */
-/* Misalnya: menghasilkan P, maka InfoList(P)=X, NextList(P)=Nil, PrevList(P)=Nil */
 /* Jika alokasi gagal, mengirimkan Nil. */ {
     //KAMUS LOKAL
     address P;
-
     //ALGORITMA
     P = (address) malloc(sizeof (ElmtList));
     if (P == Nil)
         return Nil;
     else {
-        InfoList(P) = X;
+        NomorMeja(P) = X.NbTable;
+        WaktuTunggu(P) = 0; //Waktu tunggu pas sebelum dapat meja direset
+        JumlahOrang(P) = X.NbPeople;
         NextList(P) = Nil;
         return P;
     }
@@ -50,10 +50,10 @@ void DealokasiList(address P)
 }
 
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
-address SearchList(List L, infotype X)
-/* Mencari apakah ada elemen list dengan InfoList(P)=X */
-/* Jika ada, mengirimkan address elemen tersebut. */
-/* Jika tidak ada, mengirimkan Nil */ {
+boolean CekNomorMeja(List L, Customer X)
+/* Mencari apakah ada elemen list dengan NomorMeja(P) = X */
+/* Dipake buat cek pas ngasih makanan bener gak pesanannya */
+{
     //KAMUS LOKAL
     boolean found;
     address P;
@@ -62,21 +62,38 @@ address SearchList(List L, infotype X)
     P = FirstList(L);
     found = false;
     while ((P != Nil) && (!found)) {
-        if (X == InfoList(P))
+        if (NomorMeja(P) == X.NbTable){
             found = true;
+        }
         else
             P = NextList(P);
     }
-    if (!found)
-        return Nil;
-    else
-        return P;
+    return (found);
 }
+boolean CekWaktuTunggu (List L)
+/* Mencari apakah ada elemen list dengan WaktuTunggu(P) >= MaxWaitTime */
+/* FUNGSI DALAM, hanya dipanggil di dalam DelCustomer */
+{
+    //KAMUS LOKAL
+    boolean found;
+    address P;
 
+    //ALGORITMA
+    P = FirstList(L);
+    found = false;
+    while ((P != Nil) && (!found)) {
+        if (WaktuTunggu(P) >= MaxWaitTime){
+            found = true;
+        }
+        else
+            P = NextList(P);
+    }
+    return (found);
+}
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 
 /*** PENAMBAHAN ELEMEN ***/
-void InsVFirstList(List *L, infotype X)
+void InsVFirstList(List *L, Customer X)
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen pertama dengan nilai X jika alokasi berhasil */ {
@@ -84,13 +101,13 @@ void InsVFirstList(List *L, infotype X)
     address P;
 
     //ALGORITMA
-    P = AlokasiList(X);
+    P = AlokasiMeja(X);
     if (P != Nil) {
         InsertFirstList(L, P);
     }
 }
 
-void InsVLastList(List *L, infotype X)
+void InsVLastList(List *L, Customer X)
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen list di akhir: elemen terakhir yang baru */
@@ -99,14 +116,14 @@ void InsVLastList(List *L, infotype X)
     address P;
 
     //ALGORITMA
-    P = AlokasiList(X);
+    P = AlokasiMeja (X);
     if (P != Nil) {
-        InserLastListList(L, P);
+        InsertLastList(L, P);
     }
 }
 
 /*** PENGHAPUSAN ELEMEN ***/
-void DelVFirstList(List *L, infotype *X)
+void DelVFirstList(List *L/*, Customer *X*/)
 /* I.S. List L tidak kosong  */
 /* F.S. Elemen pertama list dihapus: nilai info disimpan pada X */
 /*      dan alamat elemen pertama di-dealokasi */ {
@@ -115,11 +132,15 @@ void DelVFirstList(List *L, infotype *X)
 
     //ALGORITMA
     DelFirstList(L, &P);
-    *X = InfoList(P);
+    /*
+    *X.NbPeople = JumlahOrang(P);
+    *X.WaitTime = WaktuTunggu(P);
+    *X.NbTable = NomorMeja(P);
+    */
     DealokasiList(P);
 }
 
-void DelVLastList(List *L, infotype *X)
+void DelVLastList(List *L/*, Customer *X*/)
 /* I.S. list tidak kosong */
 /* F.S. Elemen terakhir list dihapus: nilai info disimpan pada X */
 /*      dan alamat elemen terakhir di-dealokasi */ {
@@ -128,7 +149,11 @@ void DelVLastList(List *L, infotype *X)
 
     //ALGORITMA
     DelLastList(L, &P);
-    *X = InfoList(P);
+    /*
+    *X.NbPeople = JumlahOrang(P);
+    *X.WaitTime = WaktuTunggu(P);
+    *X.NbTable = NomorMeja(P);
+    */
     DealokasiList(P);
 }
 
@@ -218,12 +243,10 @@ void DelLastList(List *L, address *P)
     PrevList(*P) = Nil;
 }
 
-void DelPList(List *L, infotype X)
+void DelCustomer(List *L)
 /* I.S. Sembarang */
-/* F.S. Jika ada elemen list beraddress P, dengan InfoList(P)=X  */
-/* maka P dihapus dari list dan didealokasi */
-/* Jika tidak ada elemen list dengan InfoList(P)=X, maka list tetap */
-/* List mungkin menjadi kosong karena penghapusan */ {
+/* F.S. Menghapus SEMUA Customer Group yang WaktuTunggu nya >= MaxWaitTime */ 
+{
     //KAMUS LOKAL
     address Prec, P;
     boolean found;
@@ -232,20 +255,22 @@ void DelPList(List *L, infotype X)
     P = FirstList(*L);
     Prec = Nil;
     found = false;
-    while ((!found) && (P != Nil)) {
-        if (InfoList(P) == X) {
-            found = true;
-        } else {
-            Prec = P;
-            P = NextList(P);
+    while (CekWaktuTunggu(*L)){
+        while ((!found) && (P != Nil)) {
+            if (WaktuTunggu(P) >= MaxWaitTime) {
+                found = true;
+            } else {
+                Prec = P;
+                P = NextList(P);
+            }
         }
-    }
-    if (found) {
-        if (Prec == Nil) {
-            DelVFirstList(L, &X);
-        } else {
-            DelAfterList(L, &P, Prec);
-            DealokasiList(P);
+        if (found) {
+            if (Prec == Nil) {
+                DelVFirstList(L/*,&X*/);
+            } else {
+                DelAfterList(L, &P, Prec);
+                DealokasiList(P);
+            }
         }
     }
 }
@@ -298,7 +323,7 @@ void PrintForwardList(List L)
         P = FirstList(L);
         printf("[");
         while (P != Nil) {
-            printf("%d", InfoList(P));
+            printf("%d %d %d\n", JumlahOrang(P),WaktuTunggu(P),NomorMeja(P));
             P = NextList(P);
             if (P != Nil) {
                 printf(",");
@@ -325,7 +350,7 @@ void PrintBackwardList(List L)
         P = LastList(L);
         printf("[");
         while (P != Nil) {
-            printf("%d", InfoList(P));
+            printf("%d %d %d\n", JumlahOrang(P),WaktuTunggu(P),NomorMeja(P));
             P = PrevList(P);
             if (P != Nil) {
                 printf(",");
