@@ -117,15 +117,15 @@ OrderList InverseTab (OrderList T)
   return temp;
 }
 
-boolean IsSimetris (OrderList T)
+//boolean IsSimetris (OrderList T)
 /* Menghasilkan true jika tabel simetrik */
 /* Tabel disebut simetrik jika: */
 /*      elemen pertama = elemen terakhir, */
 /*      elemen kedua = elemen sebelum terakhir, dan seterusnya */
 /* Tabel kosong adalah tabel simetris */
-{
+/*{
   return(IsEQ(T, InverseTab(T)));
-}
+}*/
 
 
 /* ********** MENAMBAH ELEMEN ********** */

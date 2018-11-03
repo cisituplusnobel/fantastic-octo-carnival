@@ -18,7 +18,7 @@ typedef struct{
 typedef struct{
     int Code;
     int Price;
-    int TableNb;
+    int NbOrder;
 } Order;
 
 /*TUPLE DARI LIST OF STACK OF FOOD (belum ada) */

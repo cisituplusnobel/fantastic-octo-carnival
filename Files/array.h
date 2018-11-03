@@ -16,7 +16,7 @@
 #define IdxMinArray 1
 /* Indeks minimum array */
 #define IdxUndefArray -999
-/* Indeks NbTable tak terdefinisi*/
+/* Indeks NbOrder tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
 typedef int IdxType;  /* type indeks */
@@ -44,7 +44,7 @@ typedef struct {
 #define ElmtArray(T,i) (T).TI[(i)]
 #define OrderCode(T,i) (T).TI[(i)].Code
 #define OrderPrice(T,i) (T).TI[(i)].Price
-#define OrderTable(T,i) (T).TI[(i)].NbTable
+#define OrderTable(T,i) (T).TI[(i)].NbOrder
 
 
 /* ********** KONSTRUKTOR ********** */
@@ -96,7 +96,7 @@ OrderList InverseTab (OrderList T);
 /* elemen pertama menjadi terakhir, */
 /* elemen kedua menjadi elemen sebelum terakhir, dst.. */
 /* Tabel kosong menghasilkan tabel kosong */
-boolean IsSimetris (OrderList T);
+//boolean IsSimetris (OrderList T);
 /* Menghasilkan true jika tabel simetrik */
 /* Tabel disebut simetrik jika: */
 /*      elemen pertama = elemen terakhir, */
@@ -120,7 +120,7 @@ void DelEli (OrderList * T, IdxType i, ElTypeArray * X);
 void ORDER (OrderList *T ,ElTypeArray Pesanan);
 /* Memasukkan pesanan ke dalam OrderList*/
 
-void PrintOrder(OrderList T)
+//void PrintOrder(OrderList T)
 /* Menampilkan pesanan yang ada pada orderList*/
 
 #endif
