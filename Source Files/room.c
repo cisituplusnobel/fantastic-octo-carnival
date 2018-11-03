@@ -394,6 +394,7 @@ int main() {
                         } else
                         }
                 }
+                J = NextDetik(J);
                 break;
             default:
                 printf("RUANG 1 \n");
