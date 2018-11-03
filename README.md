@@ -6,4 +6,4 @@
 - Kalau ingin membuat tipe bentukan, edit di file header bernama "datatype.h"
 - Kalau ingin deklarasi variabel, edit di file header "variables.h" dan file body "variables.c" 
 
-Is it worth separating those two files ? Yep
+Header sama Source Filenya gua satuin aja ya (sementara)
