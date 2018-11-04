@@ -12,3 +12,5 @@ Update 4 November 2018 :
 - Tambahan 2 ADT room dan function. Room untuk mengolah ruangan yang saat ini masih direpresentasikan dengan array of matriks.  Sedangkan function tempat untuk semua fungsi-fungsi yang diminta game.
 - Gunakan main.c
 - Seated customer yang ditambahin abda di room jadi hilang. Maafkan haha.
+- Mengakses meja gak pake nomor ruangan lagi.
+  Yang dulunya : MakeEmptyTable(*R,ruang,meja); sekarang jadi MakeEmptyTable(*R,meja); 
