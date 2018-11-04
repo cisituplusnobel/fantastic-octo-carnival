@@ -1,31 +1,50 @@
-//Nama Kelompok/Kelas : Cisitu plus Nobel / K03
+/* Kelompok    : CisituPlusNobel
+/* File        : datatype.h */
+/* Tanggal     : 29 Oktober 2018 */
+
 #ifndef DATATYPE_H
 #define DATATYPE_H 
+
+#include "matriks.h"
+
 
 /* DAFTAR TIPE BENTUKAN */
 
 /*Customer adalah satu kelompok orang yang datang bersama*/
-#define TableUndef -999
+#define DataUndef -999
 
-/* TUPLE DARI LIST OF SEATED CUSTOMER */
+typedef struct{
+    int Code;
+    int Price; 
+} Orders;
+
 typedef struct{
     int NbPeople; //Jumlah orang dalam suatu kelompok
     int WaitTime; //Waktu menunggu di antrian
     int NbTable; //Nomor meja, jika belum mendapat meja maka bernilai TableUndef
+    Orders Pesanan;
 } Customer;
 
-/* TUPLE DARI ARRAY OF ORDER */
+#define RMax 100
 typedef struct{
-    int Code;
-    int Price;
-    int NbOrder;
-} Order;
+  MATRIKS Mem[RMax+1];
+} ROOM;
 
-/*TUPLE DARI LIST OF STACK OF FOOD (belum ada) */
+#define Elm(R,i) (R).Mem[(i)]
 
+char bahan[17][12];
 
+char menu[9][20];
 
+//Customer emptyOrder;
 
+/*
+typedef struct{
+    int TableTime; //Waktu sejak sudah duduk di meja.
+    Order FoodOrder; // Berisi nama makanan/minuman yang dipesan,setiap meja hanya dapat memesan 1 jenis makanan/minuman saja.
+    int NbTable; //Nomor Meja.
+} Table;
+*/
 
 #endif
 

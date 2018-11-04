@@ -111,7 +111,7 @@ boolean EQSizeMATRIKS (MATRIKS M1, MATRIKS M2);
 /* yaitu GetBrsEff(M1) = GetNBrsEff (M2) dan GetNKolEff (M1) = GetNKolEff (M2) */
 
 /* ********** Operasi lain ********** */
-int NBEmltMATRIKS (MATRIKS M);
+int NBElmtMATRIKS (MATRIKS M);
 /* Mengirimkan banyaknya elemen M */
 
 /* ********** KELOMPOK TEST TERHADAP MATRIKS ********** */

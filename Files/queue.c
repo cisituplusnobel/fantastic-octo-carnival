@@ -95,3 +95,52 @@ void DelQueue(Queue * Q, infotype * X)
         }
     }
 }
+
+void DelEliQueue(Queue * Q, address i, infotype * X)
+/**/
+{
+    //KAMUS LOKAL
+    boolean found;
+    int j;
+
+    //ALGORITMA
+    found = true;
+    *X = (*Q).T[i];
+    while (i != Tail(*Q)) {
+        j = i + 1;
+        if (j > MaxEl(*Q)) {
+            j = j - MaxEl(*Q);
+        }
+        (*Q).T[i] = (*Q).T[j];
+        i = j;
+    }
+    Tail(*Q)--;
+    if (Tail(*Q) < 1) {
+        Tail(*Q) = MaxEl(*Q);
+    }
+}
+
+void PrintQueue(Queue Q)
+/**/
+{
+  //KAMUS LOKAL
+  int i;
+
+  //ALGORITMA
+  if (!IsEmptyQueue(Q)){
+    if (Tail(Q) >= Head(Q)){
+      for (i=Head(Q); i<= Tail(Q); i++){
+        printf("%d\n", Cust(Q,i));
+      }
+    } else{
+      i=Head(Q);
+      while (i!=Tail(Q)){
+        printf("%d\n", Cust(Q,i));
+        i++;
+        if (i>MaxEl(Q)){
+          i = i-MaxEl(Q);
+        }
+      }
+    }
+  }
+}
