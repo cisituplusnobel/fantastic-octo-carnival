@@ -8,3 +8,7 @@ Update 4 November 2018 :
 -jalan.c gua pindahin ke Files
 
 (Abda)
+
+- Tambahan 2 ADT room dan function. Room untuk mengolah ruangan yang saat ini masih direpresentasikan dengan array of matriks.  Sedangkan function tempat untuk semua fungsi-fungsi yang diminta game.
+- Gunakan main.c
+- Seated customer yang ditambahin abda di room jadi hilang. Maafkan haha.
