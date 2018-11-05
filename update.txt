@@ -1,5 +1,6 @@
 Update 4 November 2018 :
 
+(Abda):
 - Bikin file Update.txt buat detail update
 - Nyatuin Header Files sama Source Files ke Folder "Files" (sementara biar gampang)
 - Edit array.c sama array.h (buat nanganin array of order)
@@ -7,10 +8,17 @@ Update 4 November 2018 :
 -Edit room.c
 -jalan.c gua pindahin ke Files
 
-(Abda)
 
+(Ijun) :
 - Tambahan 2 ADT room dan function. Room untuk mengolah ruangan yang saat ini masih direpresentasikan dengan array of matriks.  Sedangkan function tempat untuk semua fungsi-fungsi yang diminta game.
 - Gunakan main.c
 - Seated customer yang ditambahin abda di room jadi hilang. Maafkan haha.
 - Mengakses meja gak pake nomor ruangan lagi.
   Yang dulunya : MakeEmptyTable(*R,ruang,meja); sekarang jadi MakeEmptyTable(*R,meja); 
+
+Update 5 November 2018 :
+
+(Abda) :
+-Nambah pohonbiner.txt, .c. sama .h didalemnya ada Command RECIPE
+-Fungsi convert dari code pesenan ke String belum gua bikin karena gatau   kodenya berapa aja, tree nya biarin aja tipenya KATA.
+
