@@ -19,21 +19,21 @@ int main(){
   Queue Q;
   Stack S;
   char C1,C2;
-  int room;
+  int room, life, money;
   TabInt orders,tables;
 	Customer emptyOrder;
 
   //ALGORITMA
-  Inisalisasi(&R, &P, &J, &Q, &S, &orders, &tables, &emptyOrder);
+  Inisalisasi(&R, &P, &J, &Q, &S, &orders, &tables, &emptyOrder, &life, &money);
   ElmtMATRIKS(Elm(R,1),Absis(P),Ordinat(P)) = 'P';
   room = 1;
 
   while(true){
-    Interface(R, room, Q, S, orders, J);
+    system("clear");
+    Interface(R, room, Q, S, orders, J, life, money);
 
     printf("COMMAND = ");
     scanf("%c%c", &C2, &C1);
-
     switch (C2){
       case 'D': //GD
         Go(&R,&P, C2, &room);
@@ -48,7 +48,7 @@ int main(){
         Go(&R,&P, C2, &room);
         break;								      
 			case 'P': //PLACE
-				Place(&Q, &R);
+				Place(&Q, &R, P, room, &tables);
         break;
       case 'T': //TAKE
 				Take(P, &S, R, room);
@@ -57,7 +57,7 @@ int main(){
 				CH(&S);
         break;
       case 'O': //ORDER
-				Order(&R, room, P);
+				Order(&R, room, P, &orders, tables);
         break;
       default :
         printf("RUANG 1 \n"); TulisMATRIKS(Elm(R,1)); printf("\n\n");
@@ -67,6 +67,6 @@ int main(){
     }
 
 		J = NextDetik(J);
-		AddRemove(&orders, &Q, emptyOrder, J, &R, P);
+		AddRemove(&orders, &Q, emptyOrder, J, &R, P, &life, &tables);
   }
 }

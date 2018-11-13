@@ -46,6 +46,6 @@ void CekSebelahan(ROOM R,int room, POINT P,int *meja);
 /*  Melakukan oengecekan apakah koordinat player (P) bersebelahan dengan salah satu meja
     Jika bersebelahan maka akan meja akan diisi dengan nomor meja yang bersebelahan*/
 
-void Inisalisasi(ROOM *R, POINT *P, JAM *J, Queue *Q, Stack *S, TabInt *orders, TabInt *tables, Customer *emptyOrder);
+void Inisalisasi(ROOM *R, POINT *P, JAM *J, Queue *Q, Stack *S, TabInt *orders, TabInt *tables, Customer *emptyOrder, int *life, int *money);
 /*  Melakukan inisalisasi pada bentuk setiap room yaitu ruangan dalam representasi matriks, koordinat pemain,
     waktu pemain, antrian, stack of foods, array of orders, list of tables */

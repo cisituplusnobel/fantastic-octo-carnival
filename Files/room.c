@@ -243,7 +243,7 @@ void CekSebelahan(ROOM R,int room, POINT P,int *table)
   }
 }
 
-void Inisalisasi(ROOM *R, POINT *P, JAM *J, Queue *Q, Stack *S, TabInt *orders, TabInt *tables, Customer *emptyOrder)
+void Inisalisasi(ROOM *R, POINT *P, JAM *J, Queue *Q, Stack *S, TabInt *orders, TabInt *tables, Customer *emptyOrder, int *life, int *money)
 /*  Melakukan inisalisasi pada bentuk setiap room yaitu ruangan dalam representasi matriks, koordinat pemain,
     waktu pemain, antrian, stack of foods, array of orders, list of tables */
 {
@@ -280,11 +280,13 @@ void Inisalisasi(ROOM *R, POINT *P, JAM *J, Queue *Q, Stack *S, TabInt *orders, 
   AddQueue(Q, cust);
 
   CreateEmptyStackt(S);
+  
   (*emptyOrder).NbPeople = DataUndef;
   (*emptyOrder).WaitTime = DataUndef;
   (*emptyOrder).NbTable = DataUndef;
   (*emptyOrder).Pesanan.Code = DataUndef;
   (*emptyOrder).Pesanan.Price = DataUndef;
+  
   MakeEmpty(orders);
   for (i=1;i<=12;i++){
     AddEli(orders,*emptyOrder,i);
@@ -294,4 +296,8 @@ void Inisalisasi(ROOM *R, POINT *P, JAM *J, Queue *Q, Stack *S, TabInt *orders, 
   for (i=1;i<=12;i++){
     AddEli(tables,*emptyOrder,i);
   }
+
+  *life = 3;
+  
+  *money = 0;
 }

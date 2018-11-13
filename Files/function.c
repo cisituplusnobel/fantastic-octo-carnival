@@ -5,27 +5,39 @@
 #include "function.h"
 #include <stdio.h>
 
-void Interface(ROOM R, int room, Queue Q, Stack S, TabInt orders, JAM J)
+void Interface(ROOM R, int room, Queue Q, Stack S, TabInt orders, JAM J, int life, int money)
 /* Menulis Interface*/
 {
   //KAMUS LOKAL
   int i;
 
   //ALGORITMA
-  TulisMATRIKS(Elm(R,room)); printf("\n");
-  
+  printf("MONEY : %d | ", money);
+
+  printf("LIFE : %d | ", life);
+
   printf("TIME : ");
   TulisJAM(J);
+  printf("\n");
+
+  TulisMATRIKS(Elm(R,room)); printf("\n");
   
-  printf("WAITING CUST : \n");
-  PrintQueue(Q);
+  if (!IsEmptyQueue(Q)){
+    printf("WAITING CUST : \n");
+    PrintQueue(Q);
+  }
 
-  printf("HAND : \n");
-  PrintStackt(S);
+  if (!IsEmptyStackt(S)){
+    printf("HAND : \n");
+    PrintStackt(S);
+  }
 
-  printf("ORDER : \n");
-  TulisIsiTab(orders);
+  if (!IsEmptyOrders(orders)){
+    printf("ORDER : \n");
+    TulisIsiTab(orders);
+  }
 
+  printf("\n");
 }
 
 void Go(ROOM *R, POINT *P, char C, int *room)
@@ -112,29 +124,30 @@ void Go(ROOM *R, POINT *P, char C, int *room)
   //printf("<%d, %d>\n", Absis(*P), Ordinat(*P));
 }
 
-void Place(Queue *Q, ROOM *R)
+void Place(Queue *Q, ROOM *R, POINT P, int room, TabInt *tables)
 /* Menempatkan pelangan dengan Top of Queue ke dalam meja yang kososng */
 {
   //KAMUS LOKAL
-  int meja, i, j;
+  int meja, table, i, j;
   Customer X;
   boolean found;
 
   //ALGORITMA
   if (!IsEmptyQueue(*Q)) {
+    CekSebelahan(*R, room, P, &table);
     if (InfoHead(*Q).NbPeople == 4) {
       CekKosong4(*R, &meja);
-      if (meja != -999) {
-        printf("Mengisi meja nomor %d\n", meja);
-        MakeFullTable4(R, meja);
+      if ((meja != -999) && (table != -999) && (table % 2 == 1) && (IsKosong(*R,table))) {
+        printf("Mengisi meja nomor %d\n", table);
+        MakeFullTable4(R, table);
         DelQueue(Q, &X);
-        X.NbTable = meja;
+        X.NbTable = table;
         X.WaitTime = 30;
         // Add ke Array/List
-       // UbahEli(&tables,X.NbTable,X);
+        UbahEli(tables,X.NbTable,X);
       } else {
         CekKosong2(*R, &meja);
-        if (meja != -999) {
+        if ((meja != -999) && (table != -999) && (IsKosong(*R,table))){
           i = Head(*Q);
           found = false;
           j = Tail(*Q) + 1;
@@ -143,13 +156,13 @@ void Place(Queue *Q, ROOM *R)
           }
           while ((i != j) && !found) {
             if (Cust(*Q, i) == 2) {
-              printf("Mengisi meja nomor %d\n", meja);
-              MakeFullTable2(R, meja);
+              printf("Mengisi meja nomor %d\n", table);
+              MakeFullTable2(R, table);
               DelEliQueue(Q,i,&X);
-              X.NbTable = meja;
+              X.NbTable = table;
               X.WaitTime = 30;
               // Add ke Array/List
-              //UbahEli(&tables,X.NbTable,X);
+              UbahEli(tables,X.NbTable,X);
               found = true;
             }
             i++;
@@ -157,22 +170,18 @@ void Place(Queue *Q, ROOM *R)
               i = i - MaxEl(*Q);
             }
           }
-        } else {
-          printf("Semua Meja Penuh!\n");
         }
       }
     } else {
       CekKosong2(*R, &meja);
-      if (meja != -999){
-        printf("Mengisi meja nomor %d\n", meja);
-        MakeFullTable2(R, meja);
+      if ((meja != -999) && ((table != -999)) && (IsKosong(*R,table))){
+        printf("Mengisi meja nomor %d\n", table);
+        MakeFullTable2(R, table);
         DelQueue(Q, &X);
-        X.NbTable = meja;
+        X.NbTable = table;
         X.WaitTime = 30;
         // Add ke array/list
-        //UbahEli(&tables,X.NbTable,X);
-      } else {
-        printf("Semua Meja Penuh!\n");
+        UbahEli(tables,X.NbTable,X);
       }
     }
   }
@@ -240,39 +249,46 @@ void CH(Stack *S)
   }
 }
 
-void Order(ROOM *R, int room, POINT P)
+void Order(ROOM *R, int room, POINT P, TabInt *orders, TabInt tables)
 /* Mengambil order dari meja yang bersebelahan */
 {
-/*  //KAMUS LOKAL
+  //KAMUS LOKAL
   int meja;
 
   //ALGORITMA
   CekSebelahan(*R,room,P,&meja);
   if (meja != -999){
     //printf("%d\n",meja);
-    //UbahEli(&orders,(room-1)*4+meja,ElmtArray(tables,(room-1)*4+meja));
-  }*/
+    UbahEli(orders,meja,ElmtArray(tables,meja));
+    //printf("%d\n", ElmtArray((*orders),meja).Pesanan.Code);
+    printf("Order berhasil! \n");
+  }
 }
 
-void AddRemove(TabInt *orders, Queue *Q, Customer emptyOrder, JAM J, ROOM *R, POINT P)
+void AddRemove(TabInt *orders, Queue *Q, Customer emptyOrder, JAM J, ROOM *R, POINT P, int *life, TabInt *tables)
 /* Menambah Queue dan/atau mengurangi order berdasarkan waktu*/
 {
   //KAMUS LOKAL
-  int i;
+  int i,meja;
   Customer cust,X;
 
   //ALGORITMA
-/*  for (i=1; i<=12; i++){
-    ElmtArray(orders,i).WaitTime--;
-    ElmtArray(tables,i).WaitTime--;
-    if (ElmtArray(orders,i).WaitTime==0){
-      meja = ElmtArray(tables,i).NbTable;
-      printf("Pengunjung ruangan %d meja %d pergi\n",ruang,meja);
-      MakeEmptyTable(&R,meja);
-      UbahEli(orders,i,emptyOrder);
-      //UbahEli(&tables,i,emptyOrder);
+  for (i=1; i<=12; i++){
+    if (ElmtArray((*orders),i).WaitTime != DataUndef){
+      ElmtArray((*orders),i).WaitTime--;
     }
-  }*/
+    if (ElmtArray((*tables),i).WaitTime != DataUndef){
+      ElmtArray((*tables),i).WaitTime--;
+    }
+    if (ElmtArray((*tables),i).WaitTime == 0){
+      meja = ElmtArray((*tables),i).NbTable;
+      printf("Pengunjung meja %d pergi\n",meja);
+      MakeEmptyTable(R,meja);
+      UbahEli(orders,i,emptyOrder);
+      UbahEli(tables,i,emptyOrder);
+    }
+  }
+
   if (!IsEmptyQueue(*Q)){
     if (Tail(*Q) >= Head(*Q)){
       for (i=Head(*Q); i<=Tail(*Q); i++){
@@ -290,9 +306,12 @@ void AddRemove(TabInt *orders, Queue *Q, Customer emptyOrder, JAM J, ROOM *R, PO
     }
   }
 
-  if (WT(*Q, Head(*Q)) == 0) {
-    DelQueue(Q, &X);
-    //printf("Deleted\n");
+  if (!IsEmptyQueue(*Q)){
+    if (WT(*Q, Head(*Q)) == 0) {
+      DelQueue(Q, &X);
+      (*life)--;
+      //printf("Deleted\n");
+    }
   }
 
   if (JAMToDetik(J)%13 == 0){
