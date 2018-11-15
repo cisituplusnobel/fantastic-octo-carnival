@@ -22,3 +22,8 @@ Update 5 November 2018 :
 -Nambah pohonbiner.txt, .c. sama .h didalemnya ada Command RECIPE
 -Fungsi convert dari code pesenan ke String belum gua bikin karena gatau   kodenya berapa aja, tree nya biarin aja tipenya KATA.
 
+Update 15 November 2018 :
+
+(Abda) :
+-Fungsi Recipe di function sudah bekerja, JIKA di mesinkar nama file eksternalnya diganti (sementara gua tinggal dulu)
+- Fungsi Put masih ada bug sedikit di pembuatan S.Bolognese, tapi sebagian besar test input stack sudah benar
