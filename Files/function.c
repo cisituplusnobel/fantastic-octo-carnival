@@ -326,3 +326,43 @@ void AddRemove(TabInt *orders, Queue *Q, Customer emptyOrder, JAM J, ROOM *R, PO
     AddQueue(Q, cust);
   }
 }
+
+void  Recipe (BinTree *P)
+/*Mencetak Resep yang digunakan pada Engi's Kitchen */
+{
+  //Kamus
+  //Algoritma
+  LoadTree(P);
+  ShowBranch(*P);
+}
+
+//void Put (BinTree P, Stack *Bahan,Stack *Food)
+/* I.S : P, Bahan, dan Food semuanya harus sudah terdefinisi */
+/* Prosedur ini mengecek apakah urutan bahan dalam Stack sudah benar dari bawah ke atas */
+/* Jika benar , F.S semua bahan berurutan yang sesuai dengan resep yang ada pada BinTree dihilangkan,*/
+/* dan makanan jadi ditambahkan pada Stack Food */
+/* Jika tidak ada urutan bahan yang benar, tidak merubah apa-apa pada stack bahan dan stack food*/
+/*{
+  //Kamus
+  Stack STemp1, STemp2;
+  infotypeStackt X;
+  boolean can;
+  //Algoritma
+  CreateEmptyStackt(&STemp1);
+  CreateEmptyStackt(&STemp2);
+  if (!IsEmptyStackt(*Bahan)){
+    Pop(Bahan, &X);
+    Push(&STemp1,X);
+    while ((InfoTop(STemp1) != 1) && (!IsEmptyStackt(*Bahan))){
+      Pop(Bahan, &X);
+      Push(&STemp1,X);
+    }
+  }
+  //InfoTop = piring atau Bahan Kosong
+  if (IsEmptyStackt(*Bahan)){
+    InverseCopyStackt(&STemp1,Bahan);
+  }
+  else{ //InfoTop = piring
+    PutNext(P, Food, &STemp1);
+  }
+}*/
