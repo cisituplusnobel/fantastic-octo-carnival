@@ -336,33 +336,125 @@ void  Recipe (BinTree *P)
   ShowBranch(*P);
 }
 
-//void Put (BinTree P, Stack *Bahan,Stack *Food)
+/*FUNGSI PEMBANTU PUT */
+void SearchBranch(BinTree *P, Stack * StackIn, Stack * StackOut)
+/* I.S Isi awalnya harus piring, setiap pemanggilan rekursif, P merupakan isi yang pasti */
+/* ada di dalam pohon resep */
+/* F.S : */
+/* Kalo Semua Bahan di StackIn sesuai alur resep, maka ret P akan merupakan BinTree uner */
+/* Jika bahan di StackIn ada yang gak sesuai dengan alur resep, maka ret P pasti biner */
+{
+  //Kamus
+  infotypeStackt X;
+  //Algoritma
+  if (!(IsUnerRight(*P) || IsUnerLeft(*P))){
+    Pop(StackIn,&X); //Elemen pertama yang sudah dicek di rekursif sebelumnya
+    Push(StackOut,X);
+    if (InfoTop(*StackIn) == Akar(Left(*P))){
+      *P = Left(*P);
+      SearchBranch(P,StackIn,StackOut);
+    }
+    else if (InfoTop(*StackIn) == Akar(Right(*P))){
+      *P = Right(*P);
+      SearchBranch(P,StackIn,StackOut);
+    }
+    else{ //Elemen selanjutnya bukan kelanjutan bahan
+      /*Do Nothing */
+    }
+  }
+  else { //Sudah bahan Uner
+    Pop(StackIn,&X);
+    Push(StackOut, X);
+  }
+}
+
+void Put (BinTree * P, Stack *Bahan,Stack *Food)
 /* I.S : P, Bahan, dan Food semuanya harus sudah terdefinisi */
 /* Prosedur ini mengecek apakah urutan bahan dalam Stack sudah benar dari bawah ke atas */
 /* Jika benar , F.S semua bahan berurutan yang sesuai dengan resep yang ada pada BinTree dihilangkan,*/
 /* dan makanan jadi ditambahkan pada Stack Food */
 /* Jika tidak ada urutan bahan yang benar, tidak merubah apa-apa pada stack bahan dan stack food*/
-/*{
+{
   //Kamus
-  Stack STemp1, STemp2;
+  Stack SIn, SOut;
   infotypeStackt X;
-  boolean can;
+  //BinTree Px;
   //Algoritma
-  CreateEmptyStackt(&STemp1);
-  CreateEmptyStackt(&STemp2);
-  if (!IsEmptyStackt(*Bahan)){
-    Pop(Bahan, &X);
-    Push(&STemp1,X);
-    while ((InfoTop(STemp1) != 1) && (!IsEmptyStackt(*Bahan))){
-      Pop(Bahan, &X);
-      Push(&STemp1,X);
+  CreateEmptyStackt(&SIn);
+  CreateEmptyStackt(&SOut);
+  while ((InfoTop(*Bahan) != 1) && (!IsEmptyStackt(*Bahan))){ //Cari piring di Stack
+    Pop(Bahan,&X);
+    Push(&SIn,X);
+  }
+  if (InfoTop(*Bahan) == 1){ //Kalo udah ketemu piring di Top Bahan
+    //taro piring di SIn
+    Pop(Bahan,&X);
+    Push(&SIn,X);
+    //Px = P; //Pindahin paddress piring ke Px
+    SearchBranch(P, &SIn, &SOut); //Telusurin alur resepnya pake rekursif
+    if (IsUnerLeft(*P) || IsUnerRight(*P)){ //Kalo sesuai resep
+      //Pop Bahan Uner
+      
+      //Masukin makanan jadi ke Food
+      if (IsUnerRight(*P)){
+        Push(Food,Akar(Right(*P))); 
+      }
+      else if (IsUnerLeft(*P)){
+        Push(Food, Akar(Left(*P)));
+      }
+      //Jika ada makanan yang sisa di SIn, balikin ke Stack Bahan
+      while (!IsEmptyStackt(SIn)){
+        Pop(&SIn,&X);
+        Push(Bahan,X);
+      }
+    }
+    else { //gak sesuai resep, balikin Bahan seperti sedia kala
+      while(!(IsEmptyStackt(SOut))){
+        Pop(&SOut,&X);
+        Push(&SIn,X);
+      }
+      while(!(IsEmptyStackt(SIn))){
+        Pop(&SIn,&X);
+        Push(Bahan,X);
+      }
     }
   }
-  //InfoTop = piring atau Bahan Kosong
-  if (IsEmptyStackt(*Bahan)){
-    InverseCopyStackt(&STemp1,Bahan);
+  else { //Gak ada piring di stack Bahan 
+    //Balikin SIn ke Bahan
+    while (!IsEmptyStackt(SIn)){
+      Pop(&SIn,&X);
+      Push (Bahan, X);
+    }
   }
-  else{ //InfoTop = piring
-    PutNext(P, Food, &STemp1);
+}
+
+//TESTER
+/*
+int main(){
+  //Kamus
+  BinTree Resep;
+  Stack Hand,Food;
+  infotypeStackt input;
+  //Algoritma
+  CreateEmptyStackt(&Hand);
+  CreateEmptyStackt(&Food);
+  Recipe(&Resep);
+  puts("Masukan kode bahan : ");
+  scanf("%d",&input);
+  while(input != -999){
+    Push(&Hand,input);
+    puts("Masukan kode bahan : ");
+    scanf("%d",&input);
   }
+  printf("Stack Hand sebelum\n\n");
+  PrintStackt(Hand);
+  puts("\n");
+  Put(&Resep, &Hand, &Food);
+  printf("Stack Hand sesudah\n\n");
+  PrintStackt(Hand);
+  puts("\n");
+  printf("Stack Food\n\n");
+  PrintStackt(Food);
+  puts("\n");  
+  return 0;
 }*/

@@ -1,8 +1,3 @@
-//NIM/Nama : 13513017/miftahul mahfuzh
-//Nama file : pohonbiner.h
-//Topik : Pohon Biner 
-//Tanggal : 27 November 2014
-//Deskripsi : Pohon Biner dengan list
 
 /**********************ADT Pohon Biner*******************/
 
@@ -103,7 +98,8 @@ void PrintTree (BinTree P, int dh, int hc, int * ArrSlash);
 //I.S. P terdefinisi, h adalah jarak indentasi
 //F.S. Semua simpul P sudah ditulis dengan indentasi
 /*** Searching ***/
-BinTree SearchPBCode (BinTree P, int X);
+
+//BinTree SearchPBCode (BinTree P, int X);
 /* Mencari dan mengembalikan nilai alamat akar tempat X ditemukan dalam P */
 
 BinTree isNextRoot (BinTree P, int X);

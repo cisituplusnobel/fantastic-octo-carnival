@@ -1,8 +1,3 @@
-//NIM/Nama : 13513017/miftahul mahfuzh
-//Nama file : pohonbiner.h
-//Topik : Pohon Biner 
-//Tanggal : 27 November 2014
-//Deskripsi : Pohon Biner dengan list
 
 #include "pohonbiner.h"
 
@@ -212,7 +207,7 @@ void PrintTree (BinTree P, int dh, int hc, int * ArrSlash)
 	int slashtemp = hc;
 	//Algoritma
 	if (!IsTreeEmpty(P)) {
-		//printf("%d-", Akar(P));
+		printf("(%d)", Akar(P));
 		puts(bahan[Akar(P)]);
 		if (!IsTreeEmpty(Left(P))) {
 			PrintBranch(hc,ArrSlash);
@@ -260,9 +255,10 @@ void PrintTree (BinTree P, int dh, int hc, int * ArrSlash)
 	}
 }
 /*** Searching ***/
-BinTree SearchPBCode (BinTree P, int X)
+
+//BinTree SearchPBCode (BinTree P, int X)
 /* Mencari dan mengembalikan nilai alamat akar tempat X ditemukan dalam P */
-{
+/*{
 	//Kamus Lokal
 	BinTree PTempA,PTempB;
 	//Algoritma
@@ -284,7 +280,7 @@ BinTree SearchPBCode (BinTree P, int X)
 			}
 		}
 	}
-}
+}*/
 boolean SearchPB (BinTree P, int X)
 //Mengirimkan true jika ada node dari P yang bernilai X
 {

@@ -32,9 +32,9 @@ typedef struct{
 
 #define Elm(R,i) (R).Mem[(i)]
 
-char bahan[17][12];
+extern char bahan[25][20];
 
-char menu[9][20];
+extern char menu[9][20];
 
 //Customer emptyOrder;
 
