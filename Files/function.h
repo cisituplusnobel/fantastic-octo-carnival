@@ -36,15 +36,14 @@ void AddRemove(TabInt *orders, Queue *Q, Customer emptyOrder, JAM J, ROOM *R, PO
 void  Recipe (BinTree *P);
 /*Mencetak Resep yang digunakan pada Engi's Kitchen */
 
-/*FUNGSI PEMBANTU PUT */
-void SearchBranch(BinTree *P, Stack * StackIn, Stack * StackOut);
-/* I.S Isi awalnya harus piring, setiap pemanggilan rekursif, P merupakan isi yang pasti */
-/* ada di dalam pohon resep */
-/* F.S : */
-/* Kalo Semua Bahan di StackIn sesuai alur resep, maka ret P akan merupakan BinTree uner */
-/* Jika bahan di StackIn ada yang gak sesuai dengan alur resep, maka ret P pasti biner */
+/*FUNGSI PEMBANTU AMBIL BAHAN MAKANAN */
+boolean IsPlateExist (Stack S);
+/* Mengembalikan true apabila pada Stack Hand sudah terdapat piring */
 
-void Put (BinTree * P, Stack *Bahan,Stack *Food);
+void SearchBranch(BinTree *P, Stack * StackIn, Stack * StackOut);
+/*FUNGSI PEMBANTU PUT */
+
+void Put (BinTree  P, Stack *Bahan,Stack *Food);
 /* I.S P, Bahan, dan Food semuanya harus sudah terdefinisi */
 /* Prosedur ini mengecek apakah urutan bahan dalam Stack sudah benar dari bawah ke atas */
 /* Jika benar , F.S semua bahan berurutan yang sesuai dengan resep yang ada pada BinTree dihilangkan,*/

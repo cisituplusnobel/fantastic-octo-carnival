@@ -193,7 +193,10 @@ void Take(POINT P, Stack *S, ROOM R, int room)
   if (room==4){
     if((ElmtMATRIKS(Elm(R,room),Absis(P)+1,Ordinat(P)) == 'M')||(ElmtMATRIKS(Elm(R,room),Absis(P)-1,Ordinat(P)) == 'M')||(ElmtMATRIKS(Elm(R,room),Absis(P),Ordinat(P)+1) == 'M')||(ElmtMATRIKS(Elm(R,room),Absis(P),Ordinat(P)-1) == 'M')){
       if (Absis(P)==1 && Ordinat(P)==2){
-        Push(S,1);
+        if(IsPlateExist(*S))
+          puts("Gabisa ambil piring lagi");
+        else
+          Push(S,1);
       }
       else if (Absis(P)==2 && Ordinat(P)==2){
         Push (S,2);
@@ -336,39 +339,68 @@ void  Recipe (BinTree *P)
   ShowBranch(*P);
 }
 
-/*FUNGSI PEMBANTU PUT */
-void SearchBranch(BinTree *P, Stack * StackIn, Stack * StackOut)
-/* I.S Isi awalnya harus piring, setiap pemanggilan rekursif, P merupakan isi yang pasti */
-/* ada di dalam pohon resep */
-/* F.S : */
-/* Kalo Semua Bahan di StackIn sesuai alur resep, maka ret P akan merupakan BinTree uner */
-/* Jika bahan di StackIn ada yang gak sesuai dengan alur resep, maka ret P pasti biner */
+/*FUNGSI PEMBANTU AMBIL BAHAN MAKANAN */
+boolean IsPlateExist (Stack S)
+/* Mengembalikan true apabila pada Stack Hand sudah terdapat piring */
 {
   //Kamus
+  Stack STemp;
   infotypeStackt X;
   //Algoritma
-  if (!(IsUnerRight(*P) || IsUnerLeft(*P))){
-    Pop(StackIn,&X); //Elemen pertama yang sudah dicek di rekursif sebelumnya
-    Push(StackOut,X);
-    if (InfoTop(*StackIn) == Akar(Left(*P))){
-      *P = Left(*P);
-      SearchBranch(P,StackIn,StackOut);
+  CreateEmptyStackt(&STemp);
+  if (IsEmptyStackt(S))
+    return false;
+  else{
+    while (!IsEmptyStackt(S) && (InfoTop(STemp) != 1)){
+      Pop(&S,&X);
+      Push(&STemp,X);
     }
-    else if (InfoTop(*StackIn) == Akar(Right(*P))){
-      *P = Right(*P);
-      SearchBranch(P,StackIn,StackOut);
-    }
-    else{ //Elemen selanjutnya bukan kelanjutan bahan
-      /*Do Nothing */
-    }
-  }
-  else { //Sudah bahan Uner
-    Pop(StackIn,&X);
-    Push(StackOut, X);
+    if (InfoTop(STemp) == 1)
+      return true;
+    else 
+      return false;
   }
 }
 
-void Put (BinTree * P, Stack *Bahan,Stack *Food)
+void SearchBranch(BinTree *P, Stack * StackIn, Stack * StackOut)
+/*FUNGSI PEMBANTU PUT */
+{
+  //Kamus
+  infotypeStackt X;
+  boolean match = true;
+  //Algoritma
+  while ((match) && (!IsOneElmt(*P))){
+    if (!IsEmptyStackt(*StackIn)){
+      Pop(StackIn,&X);
+      Push(StackOut,X);
+    }
+    if (IsUnerRight(*P)){
+      if (InfoTop(*StackIn) != Akar(Right(*P))){
+        match = false;
+      }
+      *P = Right(*P); //kasus bahan akhir uner
+    }
+    else if (IsUnerLeft(*P)){
+      if (InfoTop(*StackIn) != Akar(Left(*P))){
+        match = false;
+      }
+      *P = Left(*P); //kasus bahan akhir uner
+    }
+    else{
+      if (InfoTop(*StackIn) == Akar(Right(*P))){
+        *P = Right(*P);
+      }
+      else if (InfoTop(*StackIn) == Akar(Left(*P))){
+        *P = Left(*P);
+      }
+      else{
+        match = false;
+      }
+    }
+  } 
+}
+
+void Put (BinTree  P, Stack *Bahan,Stack *Food)
 /* I.S : P, Bahan, dan Food semuanya harus sudah terdefinisi */
 /* Prosedur ini mengecek apakah urutan bahan dalam Stack sudah benar dari bawah ke atas */
 /* Jika benar , F.S semua bahan berurutan yang sesuai dengan resep yang ada pada BinTree dihilangkan,*/
@@ -378,7 +410,7 @@ void Put (BinTree * P, Stack *Bahan,Stack *Food)
   //Kamus
   Stack SIn, SOut;
   infotypeStackt X;
-  //BinTree Px;
+  BinTree Px;
   //Algoritma
   CreateEmptyStackt(&SIn);
   CreateEmptyStackt(&SOut);
@@ -390,18 +422,10 @@ void Put (BinTree * P, Stack *Bahan,Stack *Food)
     //taro piring di SIn
     Pop(Bahan,&X);
     Push(&SIn,X);
-    //Px = P; //Pindahin paddress piring ke Px
-    SearchBranch(P, &SIn, &SOut); //Telusurin alur resepnya pake rekursif
-    if (IsUnerLeft(*P) || IsUnerRight(*P)){ //Kalo sesuai resep
-      //Pop Bahan Uner
-      
-      //Masukin makanan jadi ke Food
-      if (IsUnerRight(*P)){
-        Push(Food,Akar(Right(*P))); 
-      }
-      else if (IsUnerLeft(*P)){
-        Push(Food, Akar(Left(*P)));
-      }
+    Px = P; 
+    SearchBranch(&Px, &SIn, &SOut); 
+    if (IsOneElmt(Px)) { //Kalo sesuai resep
+      Push(Food, Akar(Px));
       //Jika ada makanan yang sisa di SIn, balikin ke Stack Bahan
       while (!IsEmptyStackt(SIn)){
         Pop(&SIn,&X);
@@ -428,8 +452,9 @@ void Put (BinTree * P, Stack *Bahan,Stack *Food)
   }
 }
 
-//TESTER
+
 /*
+//TESTER
 int main(){
   //Kamus
   BinTree Resep;
@@ -441,19 +466,27 @@ int main(){
   Recipe(&Resep);
   puts("Masukan kode bahan : ");
   scanf("%d",&input);
-  while(input != -999){
-    Push(&Hand,input);
-    puts("Masukan kode bahan : ");
+  while(input != 0){
+    if (input == 1){
+      if (IsPlateExist(Hand)){
+        puts("gabisa piring lagi");
+      }
+      else{
+        Push(&Hand,input);     
+      }
+    }
+    else
+      Push(&Hand,input);
     scanf("%d",&input);
   }
-  printf("Stack Hand sebelum\n\n");
+  printf("Stack Hand sebelum\n");
   PrintStackt(Hand);
   puts("\n");
-  Put(&Resep, &Hand, &Food);
-  printf("Stack Hand sesudah\n\n");
+  Put(Resep, &Hand, &Food);
+  printf("Stack Hand sesudah\n");
   PrintStackt(Hand);
   puts("\n");
-  printf("Stack Food\n\n");
+  printf("Stack Food\n");
   PrintStackt(Food);
   puts("\n");  
   return 0;
