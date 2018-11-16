@@ -33,7 +33,7 @@ void Order(ROOM *R, int room, POINT P, TabInt *orders, TabInt tables);
 void AddRemove(TabInt *orders, Queue *Q, Customer emptyOrder, JAM J, ROOM *R, POINT P, int *life, TabInt *tables);
 /* Menambah Queue dan/atau mengurangi order berdasarkan waktu*/
 
-void  Recipe (BinTree *P);
+void  LoadRecipe (BinTree *P);
 /*Mencetak Resep yang digunakan pada Engi's Kitchen */
 
 /*FUNGSI PEMBANTU AMBIL BAHAN MAKANAN */

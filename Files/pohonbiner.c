@@ -97,7 +97,7 @@ boolean IsOneElmt (BinTree P)
 	//Kamus Lokal
 	
 	//Algoritma
-	return ((!IsTreeEmpty(P))&&(IsTreeEmpty(Left(P)))&&(IsTreeEmpty(Left(P))));
+	return ((!IsTreeEmpty(P))&&(IsTreeEmpty(Left(P)))&&(IsTreeEmpty(Right(P))));
 }
 boolean IsUnerLeft (BinTree P)
 //Mengirimkan true jika pohon biner tidak kosong P adalah
