@@ -36,9 +36,6 @@ void AddRemove(TabInt *orders, Queue *Q, Customer emptyOrder, JAM J, ROOM *R, PO
 void  LoadRecipe (BinTree *P);
 /*Mencetak Resep yang digunakan pada Engi's Kitchen */
 
-/*FUNGSI PEMBANTU AMBIL BAHAN MAKANAN */
-boolean IsPlateExist (Stack S);
-/* Mengembalikan true apabila pada Stack Hand sudah terdapat piring */
 
 void SearchBranch(BinTree *P, Stack * StackIn, Stack * StackOut);
 /*FUNGSI PEMBANTU PUT */

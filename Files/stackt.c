@@ -61,5 +61,9 @@ void PrintStackt(Stack S)
     for (i=Top(S);i>=1;i--){
       printf("%s\n",bahan[S.T[i]]);
     }
+    puts("\n");
+  }
+  else{
+    puts("\n(KOSONG)\n");
   }
 }
