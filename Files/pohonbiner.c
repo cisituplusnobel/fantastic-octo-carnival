@@ -178,7 +178,7 @@ void ShowBranch (BinTree P)
 	//Algoritma
 	for (int i = 0;i < 100; i++)
 		Slash[i] = 0;
-	PrintTree (P, 5, 3,Slash);
+	PrintTree (P, 7, 5,Slash);
 }
 void PrintBranch(int h, int * ArrSlash)
 /* Fungsi Pembantu PrintTree() */
@@ -204,22 +204,26 @@ void PrintTree (BinTree P, int dh, int hc, int * ArrSlash)
 {
 	//Kamus Lokal
 	int i,j;
-	int slashtemp = hc;
+	int slashtemp = hc + dh/2;
 	//Algoritma
 	if (!IsTreeEmpty(P)) {
+		if (Akar(P) == 1){
+			for (int k = 1;k < dh;k++)
+				printf(" ");
+		}
 		printf("(%d)", Akar(P));
 		puts(bahan[Akar(P)]);
 		if (!IsTreeEmpty(Left(P))) {
-			PrintBranch(hc,ArrSlash);
+			PrintBranch(slashtemp,ArrSlash);
 			i = 0;
 			while ((ArrSlash[i] != 0) && (ArrSlash[i] != slashtemp)){
 				i += 1;
 			}
 			if(ArrSlash[i] == 0){
-				ArrSlash[i] = hc;
+				ArrSlash[i] = slashtemp;
 			}
 			printf("|");
-			for (int j = 1; j < dh; j++){
+			for (int j = 1; j < dh/2; j++){
 				printf("-");
 			} 
 			printf(">");
@@ -227,16 +231,16 @@ void PrintTree (BinTree P, int dh, int hc, int * ArrSlash)
 			PrintTree(Left(P), dh, hc+dh, ArrSlash);
 		}
 		if (!IsTreeEmpty(Right(P))) {
-			PrintBranch(hc,ArrSlash);
+			PrintBranch(slashtemp,ArrSlash);
 			i = 0;
 			while ((ArrSlash[i] != 0) && (ArrSlash[i] != slashtemp)){
 				i += 1;
 			}
 			if(ArrSlash[i] == 0){
-				ArrSlash[i] = hc;
+				ArrSlash[i] = slashtemp;
 			}
 			printf("|");
-			for (j = 1; j < dh; j++){
+			for (j = 1; j < dh/2; j++){
 				printf("-");
 			} 
 			printf(">");
@@ -246,9 +250,7 @@ void PrintTree (BinTree P, int dh, int hc, int * ArrSlash)
 				if (ArrSlash[j] == slashtemp){
 					ArrSlash[j] = -999;
 				}
-				else{
-					j += 1;
-				}
+				j += 1;
 			}	
 			PrintTree(Right(P), dh, hc+dh, ArrSlash);
 		}
