@@ -27,3 +27,9 @@ Update 15 November 2018 :
 (Abda) :
 -Fungsi Recipe di function sudah bekerja, JIKA di mesinkar nama file eksternalnya diganti (sementara gua tinggal dulu)
 - Fungsi Put masih ada bug sedikit di pembuatan S.Bolognese, tapi sebagian besar test input stack sudah benar
+
+Update 24 November 2018 :
+
+(Tami) :
+-Upload graph.h dan graph.c
+*graph belum tau penggunaannya untuk apa
