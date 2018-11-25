@@ -1,9 +1,47 @@
-# fantastic-octo-carnival
+ /$$$$$$$$                     /$$ /$$ /$$$$$$        /$$   /$$ /$$   /$$               /$$                          
+| $$_____/                    |__/| $//$$__  $$      | $$  /$$/|__/  | $$              | $$                          
+| $$       /$$$$$$$   /$$$$$$  /$$|_/| $$  `__/      | $$ /$$/  /$$ /$$$$$$    /$$$$$$$| $$$$$$$   /$$$$$$  /$$$$$$$ 
+| $$$$$   | $$__  $$ /$$__  $$| $$   |  $$$$$$       | $$$$$/  | $$|_  $$_/   /$$_____/| $$__  $$ /$$__  $$| $$__  $$
+| $$__/   | $$  ` $$| $$  ` $$| $$    `____  $$      | $$  $$  | $$  | $$    | $$      | $$  ` $$| $$$$$$$$| $$  ` $$
+| $$      | $$  | $$| $$  | $$| $$    /$$  ` $$      | $$`  $$ | $$  | $$ /$$| $$      | $$  | $$| $$_____/| $$  | $$
+| $$$$$$$$| $$  | $$|  $$$$$$$| $$   |  $$$$$$/      | $$ `  $$| $$  |  $$$$/|  $$$$$$$| $$  | $$|  $$$$$$$| $$  | $$
+|________/|__/  |__/ `____  $$|__/    `______/       |__/  `__/|__/   `___/   `_______/|__/  |__/ `_______/|__/  |__/
+                        /$$  ` $$                                                                                       
+                    |  $$$$$$/                  __ __ __(_)| |_ | |_    ___ __ __ _ __  __ _  _ _   ___(_) ___  _ _  
+                        `______/                   ` V  V /| ||  _|| ' `  / -_)` ` /| '_ `/ _` || ' ` (_-<| |/ _ `| ' ` 
+                                                    `_/`_/ |_| `__||_||_| `___|/_`_`| .__/`__,_||_||_|/__/|_|`___/|_||_|
+                                                                                    |_|                                 
+DISCLAIMER: 
+FOR BETTER USER EXPERIENCE, RUN THIS PROGRAM ON LINUX DISTRIBUTION (Ubuntu 18.04 advised).
+MENGGUNAKAN OS SELAIN LINUX BISA SAJA MENYEBABKAN KEGAGALAN KOMPILASI ATAU RUN PROGRAM.
 
-### Note for developers
-- .h goes to Header Files
-- .c goes to Source Files
-- Kalau ingin membuat tipe bentukan, edit di file header bernama "datatype.h"
-- Kalau ingin deklarasi variabel, edit di file header "variables.h" dan file body "variables.c" 
+Deliverables ini berisi 5 buah folder (/src, /bin, /doc, /include, /save) dan sebuah file README.
 
-Header sama Source Filenya gua satuin aja ya (sementara)
+README:
+Engi’s Kitchen merupakan suatu program yang dibuat untuk mensimulasikan keberjalanan sebuah restoran, 
+sama seperti restoran asli pada umumnya, pembuatan makanan pada Engi’s Kitchen diibuat secara on-the-spot,
+yaitu dibuat langsung di tempat setelah ada yang memesan, sama seperti restoran asli kebanyakan.
+Untuk menjalankan aplikasi, lakukan langkah berikut ini.
+1. Buka folder bin pada deliverables.
+2. Buka terminal pada folder bin
+3. Ketik ./main pada terminal (linux).
+   Catatan : Jika menemui "permission denied" , pertama jalankan perintah chmod a+x main terlebih dulu pada terminal,
+   lalu coba kembali command ./main
+4. Di awal program akan menampilkan tampilan awal disertai dengan input awal (NEW, LOAD, START atau EXIT).
+   Untuk mumulai permainan (START), Anda harus terlebih dahulu memilih NEW atau LOAD.
+   Jika memilih NEW, selanjutnya Anda akan mengetikkan nama Anda untuk dijadikan nama file untuk proeses save.
+   Jika memilih LOAD, selanjutnya Anda akan menginput nama untuk dicocokkan apakah nama sudah ada di file save.
+   Jika ternyata nama Anda belu terdaftar, maka proses Load tidak berhasil.
+5. Di awal permainan, program akan meminta input W(Go Up), A(Go Left), S(Go Down), D(Go Right) untuk bergerak.
+   Jika ingin melakukan perintah, tekan E dan program siap menerima input string yang enjadi perintah.
+   Ketik MOVE jika ingin kembali menggunkaan W,A,S,D.
+
+
+CREDIT:
+
+Cisitu Plus Nobel Team
+13517021 Abda Shaffa Diva
+13517042 Muhamad Nobel Fauzan
+13517069 Didik Supriadi
+13517075 Juniardi Akbar
+13517081 Nurul Utami
