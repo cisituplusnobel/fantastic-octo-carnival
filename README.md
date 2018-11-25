@@ -1,10 +1,10 @@
-DISCLAIMER: 
+### DISCLAIMER: 
 FOR BETTER USER EXPERIENCE, RUN THIS PROGRAM ON LINUX DISTRIBUTION (Ubuntu 18.04 advised).
 MENGGUNAKAN OS SELAIN LINUX BISA SAJA MENYEBABKAN KEGAGALAN KOMPILASI ATAU RUN PROGRAM.
 
 Deliverables ini berisi 5 buah folder (/src, /bin, /doc, /include, /save) dan sebuah file README.
 
-README:
+### README:
 Engi’s Kitchen merupakan suatu program yang dibuat untuk mensimulasikan keberjalanan sebuah restoran, 
 sama seperti restoran asli pada umumnya, pembuatan makanan pada Engi’s Kitchen diibuat secara on-the-spot,
 yaitu dibuat langsung di tempat setelah ada yang memesan, sama seperti restoran asli kebanyakan.
@@ -24,11 +24,10 @@ Untuk menjalankan aplikasi, lakukan langkah berikut ini.
    Ketik MOVE jika ingin kembali menggunkaan W,A,S,D.
 
 
-CREDIT:
-
+### CREDIT:
 Cisitu Plus Nobel Team
-13517021 Abda Shaffa Diva
-13517042 Muhamad Nobel Fauzan
-13517069 Didik Supriadi
-13517075 Juniardi Akbar
-13517081 Nurul Utami
+- 13517021 [Abda Shaffan Diva](https://github.com/abdashaffan)
+- 13517042 [Muhammad Nobel Fauzan](https://github.com/mnobelf)
+- 13517069 [Didik Supriadi](https://github.com/didiksupriadi41)
+- 13517075 [Juniardi Akbar](https://github.com/agentnine)
+- 13517081 [Nurul Utami](https://github.com/nurulutamiaw)
